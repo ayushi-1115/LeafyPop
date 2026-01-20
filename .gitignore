@@ -7,4 +7,4 @@ venv/
 db.sqlite3
 staticfiles/
 *.log
-.DS_Store
+legacy_backup/
