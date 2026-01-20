@@ -4,7 +4,7 @@ __pycache__/
 env/
 venv/
 .env
-db.sqlite3
+# db.sqlite3 (Allowed for deployment)
 staticfiles/
 *.log
 legacy_backup/
