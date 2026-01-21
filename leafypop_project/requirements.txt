@@ -1,4 +1,8 @@
-﻿Django
+pip>=23.0
+setuptools>=65.0
+wheel
+
+Django>=4.2,<5.0
 gunicorn
 whitenoise
 dj-database-url
@@ -6,5 +10,4 @@ psycopg2-binary
 asgiref
 sqlparse
 tzdata
-Pillow
-
+Pillow==9.5.0
