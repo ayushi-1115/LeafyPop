@@ -20,3 +20,15 @@ class SubscriptionPack(models.Model):
     
     def __str__(self):
         return self.name
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    order = models.PositiveIntegerField(default=0, help_text="Order in which FAQ appears")
+
+    class Meta:
+        verbose_name_plural = "FAQs"
+        ordering = ['order']
+
+    def __str__(self):
+        return self.question

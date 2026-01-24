@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, SubscriptionPack
+from .models import Product, SubscriptionPack, FAQ
 from django.utils.html import format_html
 
 # Custom Admin Site Configuration
@@ -23,5 +23,10 @@ class ProductAdmin(admin.ModelAdmin):
 class SubscriptionPackAdmin(admin.ModelAdmin):
     list_display = ('name', 'one_time_price', 'monthly_plan_price')
     list_editable = ('one_time_price', 'monthly_plan_price')
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ('question', 'order')
+    list_editable = ('order',)
 
 admin.site.register(Product, ProductAdmin)
