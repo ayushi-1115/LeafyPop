@@ -163,17 +163,77 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" id="productGrid">
         {% for product in products %}
         <div
-          class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+          class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
           <div class="aspect-square bg-gray-100 overflow-hidden">
             <img src="{{ product.image.url }}" alt="{{ product.name }}"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
           </div>
-          <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2 text-gray-900">{{ product.name }}</h3>
-            <p class="text-sm text-gray-600">{{ product.description }}</p>
+          <div class="p-5 flex-grow">
+            <h3 class="text-lg font-bold mb-2 text-gray-900">{{ product.name }}</h3>
+            <p class="text-xs text-gray-500 mb-4">{{ product.description }}</p>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600">50 gm</span>
+                <span class="font-bold text-green-700">₹{{ product.price_50g|floatformat:0 }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-2">
+                <span class="text-gray-600">100 gm</span>
+                <span class="font-bold text-green-700">₹{{ product.price_100g|floatformat:0 }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="px-5 pb-5">
+            <a href="https://wa.me/918511489644?text=Hi LeafyPop! I would like to order {{ product.name }}"
+              target="_blank"
+              class="block w-full text-center bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors text-sm font-semibold">
+              Order Now
+            </a>
           </div>
         </div>
         {% endfor %}
+      </div>
+
+      <!-- Subscription Packs Section -->
+      <div class="mt-20">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Subscription Packs</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {% for pack in subscription_packs %}
+          <div
+            class="bg-green-50 rounded-2xl p-8 border-2 border-green-100 shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-green-800 mb-2">{{ pack.name }}</h3>
+            <p class="text-gray-600 mb-6 font-medium">{{ pack.description }}</p>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white p-4 rounded-xl shadow-sm">
+                <span class="block text-xs uppercase tracking-wider text-gray-400 mb-1">One-Time</span>
+                <span class="text-2xl font-bold text-gray-900">₹{{ pack.one_time_price|floatformat:0 }}</span>
+              </div>
+              <div class="bg-white p-4 rounded-xl shadow-sm border-2 border-green-200">
+                <span class="block text-xs uppercase tracking-wider text-green-600 mb-1 font-bold">Monthly Plan</span>
+                <span class="text-2xl font-bold text-green-700">₹{{ pack.monthly_plan_price|floatformat:0 }}</span>
+              </div>
+            </div>
+
+            <a href="https://wa.me/918511489644?text=Hi LeafyPop! I'm interested in the {{ pack.name }} subscription pack"
+              target="_blank"
+              class="mt-6 block w-full text-center bg-green-700 text-white py-3 rounded-xl hover:bg-green-800 transition-colors font-bold">
+              Get Started
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Note Section -->
+        <div class="mt-12 bg-gray-50 rounded-xl p-6 max-w-2xl mx-auto border border-gray-100">
+          <h4 class="font-bold text-gray-800 mb-3">Subscription Details:</h4>
+          <ul class="text-sm text-gray-600 space-y-2 list-disc pl-5">
+            <li>Varieties cannot be same for a particular pack.</li>
+            <li>For monthly plan, products will be delivered weekly as per the pack selected.</li>
+            <li>Payment to be done weekly as the product is delivered for monthly packs.</li>
+            <li>100% advance payment to be done.</li>
+            <li><strong>Offer:</strong> Advance prepaid payment for full month will get <strong>5% off</strong>.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
