@@ -30,7 +30,7 @@ products_data = [
         'description': 'Nutty, crunchy, and rich in protein.'
     },
     {
-        'name': 'Pea shoots Microgreens',
+        'name': 'Pea Shoot Microgreens',
         'price_50g': 70,
         'price_100g': 125,
         'image': 'products/peasoot microgreen.png',
@@ -47,7 +47,7 @@ products_data = [
         'name': 'Leafypop Mix Microgreens',
         'price_50g': 90,
         'price_100g': 160,
-        'image': 'products/leafyypopp.png',
+        'image': 'products/mix_microgreen.jpeg',
         'description': 'A healthy mix of our best microgreens.'
     },
 ]
