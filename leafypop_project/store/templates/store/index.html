@@ -12,6 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="{% static 'store/style.css' %}" />
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="font-['Poppins',sans-serif] bg-white text-gray-800 scroll-smooth antialiased">
@@ -72,7 +74,12 @@
           </li>
           {% if user.is_authenticated %}
           <li class="pl-4 border-l border-green-700 flex items-center gap-4">
-            <span class="text-green-300 text-xs font-bold uppercase tracking-widest">Hi, {{ user.username }}</span>
+            <a href="{% url 'profile' %}" class="flex flex-col items-end group">
+              <span class="text-green-300 text-[10px] font-bold uppercase tracking-widest leading-none mb-1">My
+                Account</span>
+              <span class="text-white text-sm font-bold group-hover:text-green-200 transition-colors">{{ user.username
+                }}</span>
+            </a>
             <a href="{% url 'logout' %}"
               class="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-white/20">Logout</a>
           </li>
@@ -111,8 +118,11 @@
         <li class="pt-4 border-t border-green-700/50">
           {% if user.is_authenticated %}
           <div class="flex flex-col gap-3">
-            <span class="text-green-300 text-xs font-bold uppercase tracking-widest">Logged in as: {{ user.username
-              }}</span>
+            <a href="{% url 'profile' %}"
+              class="block w-full bg-green-700/50 text-white p-3 rounded-xl border border-green-600">
+              <span class="block text-[10px] uppercase font-bold text-green-300 mb-1">Logged in as</span>
+              <span class="block font-bold">{{ user.username }}</span>
+            </a>
             <a href="{% url 'logout' %}"
               class="block w-full text-center bg-white/10 text-white py-2 rounded-lg text-sm font-bold border border-white/20">Logout</a>
           </div>
@@ -208,11 +218,28 @@
 
   <section id="products" class="py-16 md:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">Our Fresh Products</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center" data-aos="fade-up">Our Fresh Products
+      </h2>
+
+      <!-- Instant Search Bar -->
+      <div class="max-w-md mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
+        <div class="relative group">
+          <input type="text" id="productSearch" onkeyup="filterProducts()" placeholder="Search microgreens..."
+            class="w-full px-6 py-4 rounded-2xl border-2 border-green-100 focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-p-all duration-300 text-lg shadow-sm group-hover:shadow-md">
+          <div class="absolute right-5 top-1/2 -translate-y-1/2 text-green-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" id="productGrid">
         {% for product in products %}
         <div
-          class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+          class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
+          data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
           <div class="aspect-square bg-gray-100 overflow-hidden">
             <img src="{{ product.image.url }}" alt="{{ product.name }}"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
@@ -383,7 +410,7 @@
             </svg>
           </a>
           <!-- WhatsApp -->
-          <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/918511489644" target="_blank" rel="noopener noreferrer"
             class="text-gray-300 hover:text-green-400 transition-colors duration-300"
             aria-label="Contact us on WhatsApp">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -408,6 +435,34 @@
     }
   </script>
   <script src="{% static 'store/script.js' %}"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize Animations
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+
+    // Instant Product Filter
+    function filterProducts() {
+      const input = document.getElementById('productSearch');
+      const filter = input.value.toLowerCase();
+      const grid = document.getElementById('productGrid');
+      const cards = grid.getElementsByClassName('product-card');
+
+      for (let i = 0; i < cards.length; i++) {
+        const title = cards[i].getElementsByTagName('h3')[0];
+        const txtValue = title.textContent || title.innerText;
+        if (txtValue.toLowerCase().indexOf(filter) > -1) {
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+  </script>
 </body>
 
 </html>

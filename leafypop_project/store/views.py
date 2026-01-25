@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Product, SubscriptionPack, FAQ
 
@@ -58,4 +59,9 @@ def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect('index')
+
+# PROFILE VIEW: Shows user information
+@login_required
+def profile_view(request):
+    return render(request, 'store/profile.html')
     
