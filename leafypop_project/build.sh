@@ -16,3 +16,8 @@ python manage.py migrate
 # Restore products and FAQs automatically
 python populate_db_v2.py
 python populate_faqs.py
+
+# Create superuser if environment variables are set
+if [[ $DJANGO_SUPERUSER_USERNAME ]]; then
+  python manage.py createsuperuser --no-input || true
+fi
