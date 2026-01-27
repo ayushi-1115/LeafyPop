@@ -1,0 +1,12 @@
+Django
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary
+Pillow
+boto3
+django-storages
+python-dotenv
+asgiref
+sqlparse
+tzdata
