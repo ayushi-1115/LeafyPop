@@ -29,7 +29,9 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'leafypop.onrender.com',
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    '.amazonaws.com', # Allow all AWS domains
+    '*', # For initial testing on new servers (can be restricted later)
 ]
 
 

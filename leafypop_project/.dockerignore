@@ -1,0 +1,11 @@
+.git
+__pycache__
+*.pyc
+db.sqlite3
+media
+staticfiles
+.env
+.agent
+.vscode
+Dockerfile
+docker-compose.yml
