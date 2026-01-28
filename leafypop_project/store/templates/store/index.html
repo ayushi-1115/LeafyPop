@@ -110,11 +110,25 @@
               class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">Contact</a>
           </li>
           {% if user.is_authenticated %}
-          <li class="pl-4 border-l border-green-700 flex items-center gap-4">
-            <a href="{% url 'profile' %}" class="flex flex-col items-end group">
+          <li class="pl-4 border-l border-green-700 flex items-center gap-5">
+            {% if user.is_superuser %}
+            <a href="{% url 'master_dashboard' %}" class="flex flex-col items-center group">
+              <span
+                class="bg-red-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-sm uppercase tracking-tighter mb-1">Master
+                Control</span>
+              <svg class="w-5 h-5 text-gray-300 group-hover:text-red-400 transition-colors" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                </path>
+              </svg>
+            </a>
+            {% endif %}
+            <a href="{% url 'profile' %}" class="flex flex-col items-end group text-right">
               <span class="text-green-300 text-[10px] font-bold uppercase tracking-widest leading-none mb-1">My
                 Account</span>
-              <span class="text-white text-sm font-bold group-hover:text-green-200 transition-colors">{{ user.username }}</span>
+              <span class="text-white text-sm font-bold group-hover:text-green-200 transition-colors">{{ user.username
+                }}</span>
             </a>
             <a href="{% url 'logout' %}"
               class="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-white/20">Logout</a>

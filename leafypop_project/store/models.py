@@ -36,3 +36,19 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+# UserActivity Model: Tracks login logs for the Master Dashboard
+from django.contrib.auth.models import User
+
+class UserActivity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=50, default="Login") # e.g., Login, View Dashboard
+    timestamp = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "User Activities"
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.activity_type} at {self.timestamp}"

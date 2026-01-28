@@ -37,3 +37,10 @@ class FAQAdmin(admin.ModelAdmin):
 
 # Link the Product model to its custom Admin configuration
 admin.site.register(Product, ProductAdmin)
+
+from .models import UserActivity
+@admin.register(UserActivity)
+class UserActivityAdmin(admin.ModelAdmin):
+    list_display = ('user', 'activity_type', 'timestamp', 'ip_address')
+    list_filter = ('activity_type', 'timestamp')
+    search_fields = ('user__username', 'activity_type')

@@ -7,4 +7,5 @@ urlpatterns = [
     path('login/', views.login_view, name='login'), # Login Page
     path('logout/', views.logout_view, name='logout'), # Logout Action
     path('profile/', views.profile_view, name='profile'), # User Dashboard
+    path('master-dashboard/', views.admin_dashboard_view, name='master_dashboard'), # Superuser Dashboard
 ]

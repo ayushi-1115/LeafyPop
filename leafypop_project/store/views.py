@@ -3,7 +3,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Product, SubscriptionPack, FAQ
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
+from .models import Product, SubscriptionPack, FAQ, UserActivity
 
 # INDEX VIEW: Fetches all data and renders the Home Page
 def index(request):
@@ -24,7 +26,8 @@ def register_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save() # Create the user in database
-            login(request, user) # Automatically log the user in after signup
+            # Log Activity
+            UserActivity.objects.create(user=user, activity_type="Registration & Login")
             messages.success(request, f"Welcome to LeafyPop, {user.username}!")
             return redirect('index') # Go to home page
     else:
@@ -44,6 +47,8 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user) # Start user session
+                # Log Activity
+                UserActivity.objects.create(user=user, activity_type="Login")
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect('index')
             else:
@@ -64,4 +69,20 @@ def logout_view(request):
 @login_required
 def profile_view(request):
     return render(request, 'store/profile.html')
+
+# MASTER DASHBOARD: Only for SuperAdmin to see everything
+@user_passes_test(lambda u: u.is_superuser)
+def admin_dashboard_view(request):
+    total_users = User.objects.count()
+    total_products = Product.objects.count()
+    activities = UserActivity.objects.all()[:50] # Show last 50 activities
+    all_users = User.objects.all().order_by('-date_joined')
+    
+    context = {
+        'total_users': total_users,
+        'total_products': total_products,
+        'activities': activities,
+        'all_users': all_users,
+    }
+    return render(request, 'store/admin_dashboard.html', context)
     
