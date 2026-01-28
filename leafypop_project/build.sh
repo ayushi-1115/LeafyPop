@@ -17,10 +17,7 @@ python manage.py migrate
 python populate_db_v2.py
 python populate_faqs.py
 
-# Create superuser if environment variables are set
+# Create superuser using custom script
 if [[ $DJANGO_SUPERUSER_USERNAME ]]; then
-  # Try custom script first for better branding
   python create_leafypop_admin.py || true
-  # Fallback to standard command
-  python manage.py createsuperuser --no-input --email $DJANGO_SUPERUSER_EMAIL || true
 fi
