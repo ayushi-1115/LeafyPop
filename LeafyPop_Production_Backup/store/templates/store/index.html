@@ -111,8 +111,7 @@
         <li class="pt-4 border-t border-green-700/50">
           {% if user.is_authenticated %}
           <div class="flex flex-col gap-3">
-            <span class="text-green-300 text-xs font-bold uppercase tracking-widest">Logged in as: {{ user.username
-              }}</span>
+            <span class="text-green-300 text-xs font-bold uppercase tracking-widest">Logged in as: {{ user.username }}</span>
             <a href="{% url 'logout' %}"
               class="block w-full text-center bg-white/10 text-white py-2 rounded-lg text-sm font-bold border border-white/20">Logout</a>
           </div>
