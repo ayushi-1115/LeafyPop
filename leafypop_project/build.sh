@@ -19,5 +19,8 @@ python populate_faqs.py
 
 # Create superuser if environment variables are set
 if [[ $DJANGO_SUPERUSER_USERNAME ]]; then
-  python manage.py createsuperuser --no-input || true
+  # Try custom script first for better branding
+  python create_leafypop_admin.py || true
+  # Fallback to standard command
+  python manage.py createsuperuser --no-input --email $DJANGO_SUPERUSER_EMAIL || true
 fi
