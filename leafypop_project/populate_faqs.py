@@ -39,10 +39,7 @@ faqs = [
         "question": "Are your packaging materials eco-friendly?",
         "answer": "Yes! We use biodegradable and recyclable packaging materials to reduce environmental impact."
     },
-    {
-        "question": "Can I grow microgreens at home?",
-        "answer": "Absolutely! We also provide grow-kits and guidance for home cultivation."
-    },
+
 ]
 
 for i, faq_data in enumerate(faqs):
