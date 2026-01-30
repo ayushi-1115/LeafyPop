@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} • LeafyPop Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Righteous&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Custom file input styling */
+        input[type="file"]::file-selector-button {
+            margin-right: 16px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: #f0fdf4;
+            color: #166534;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #dcfce7;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8fafc] text-gray-900 selection:bg-green-100 selection:text-green-900">
+
+    <div class="min-h-screen flex items-center justify-center p-6 lg:p-12">
+        <div
+            class="bg-white max-w-2xl w-full rounded-[2.5rem] p-8 lg:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-gray-100 relative overflow-hidden">
+
+            <!-- Decorative Background Element -->
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-50 to-emerald-50 rounded-bl-[10rem] -z-0 opacity-50">
+            </div>
+
+            {% if messages %}
+            <div class="mb-8 space-y-3 relative z-10">
+                {% for message in messages %}
+                <div
+                    class="px-6 py-4 rounded-2xl {% if message.tags == 'error' %}bg-red-50 text-red-600 border border-red-100{% else %}bg-green-50 text-green-600 border border-green-100{% endif %} flex items-center gap-3 text-xs font-bold uppercase tracking-wider shadow-sm animate-fade-in-down">
+                    <span
+                        class="w-2 h-2 rounded-full {% if message.tags == 'error' %}bg-red-500{% else %}bg-green-500{% endif %}"></span>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="mb-10 flex justify-between items-end relative z-10">
+                <div>
+                    <a href="{% url 'master_dashboard' %}"
+                        class="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-green-600 transition-colors mb-2 inline-flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Dashboard
+                    </a>
+                    <h1 class="text-4xl font-black italic tracking-tight text-gray-900 leading-none">{{ title }}</h1>
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="space-y-8 relative z-10">
+                {% csrf_token %}
+
+                <div class="space-y-6">
+                    <!-- Product Basic Info Section -->
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label for="{{ form.name.id_for_label }}"
+                                class="block text-xs font-black uppercase tracking-widest text-gray-400 pl-1">Product
+                                Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <p class="text-red-500 text-xs mt-1 pl-1 font-bold">{{ form.name.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="{{ form.description.id_for_label }}"
+                                class="block text-xs font-black uppercase tracking-widest text-gray-400 pl-1">Description</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                            <p class="text-red-500 text-xs mt-1 pl-1 font-bold">{{ form.description.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Pricing Section -->
+                    <div class="grid grid-cols-2 gap-6 pt-2">
+                        <div class="space-y-2">
+                            <label for="{{ form.price_50g.id_for_label }}"
+                                class="block text-xs font-black uppercase tracking-widest text-gray-400 pl-1">Price
+                                (50g)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                                {{ form.price_50g }}
+                            </div>
+                            {% if form.price_50g.errors %}
+                            <p class="text-red-500 text-xs mt-1 pl-1 font-bold">{{ form.price_50g.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="{{ form.price_100g.id_for_label }}"
+                                class="block text-xs font-black uppercase tracking-widest text-gray-400 pl-1">Price
+                                (100g)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                                {{ form.price_100g }}
+                            </div>
+                            {% if form.price_100g.errors %}
+                            <p class="text-red-500 text-xs mt-1 pl-1 font-bold">{{ form.price_100g.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Image & Stock Section -->
+                    <div
+                        class="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 flex flex-col md:flex-row gap-8 items-start">
+                        <div class="space-y-2 flex-1 w-full">
+                            <label for="{{ form.image.id_for_label }}"
+                                class="block text-xs font-black uppercase tracking-widest text-gray-400 pl-1">Product
+                                Image</label>
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                            <p class="text-red-500 text-xs mt-1 pl-1 font-bold">{{ form.image.errors.0 }}</p>
+                            {% endif %}
+                            <p class="text-[10px] text-gray-400 pl-1 italic">Use high-quality square images for best
+                                results.</p>
+                        </div>
+
+                        <div class="space-y-2 flex flex-col items-center justify-center pt-1">
+                            <label for="{{ form.is_in_stock.id_for_label }}"
+                                class="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Availability</label>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                {{ form.is_in_stock }}
+                                <span class="ml-3 text-sm font-bold text-gray-700">In Stock</span>
+                            </label>
+                            {% if form.is_in_stock.errors %}
+                            <p class="text-red-500 text-xs mt-1 pl-1 font-bold">{{ form.is_in_stock.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 flex flex-col md:flex-row gap-4">
+                    <button type="submit"
+                        class="flex-1 bg-black text-white font-black py-4 rounded-xl shadow-lg hover:bg-gray-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <span>Save Changes</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
+                    <a href="{% url 'master_dashboard' %}"
+                        class="flex-none px-8 py-4 bg-gray-100 text-gray-400 hover:text-gray-600 hover:bg-gray-200 font-black rounded-xl transition-all uppercase tracking-widest text-sm text-center">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <div class="fixed bottom-6 text-center w-full pointer-events-none">
+            <p class="text-[10px] font-black text-gray-300 uppercase tracking-widest italic drop-shadow-sm">Leafypop
+                Admin Console</p>
+        </div>
+    </div>
+
+    <style>
+        /* Add some simple animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 0.3s ease-out forwards;
+        }
+    </style>
+
+</body>
+
+</html>

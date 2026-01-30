@@ -6,6 +6,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
 from .models import Product, SubscriptionPack, FAQ, UserActivity
+from .forms import ProductForm, FAQForm, SubscriptionPackForm
+from django.shortcuts import get_object_or_404
+
 
 # INDEX VIEW: Fetches all data and renders the Home Page
 def index(request):
@@ -77,12 +80,147 @@ def admin_dashboard_view(request):
     total_products = Product.objects.count()
     activities = UserActivity.objects.all()[:50] # Show last 50 activities
     all_users = User.objects.all().order_by('-date_joined')
+    products = Product.objects.all().order_by('-created_at')
+    faqs = FAQ.objects.all().order_by('order')
+    subscriptions = SubscriptionPack.objects.all()
     
     context = {
         'total_users': total_users,
         'total_products': total_products,
         'activities': activities,
         'all_users': all_users,
+        'products': products,
+        'faqs': faqs,
+        'subscriptions': subscriptions,
     }
     return render(request, 'store/admin_dashboard.html', context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def add_product_view(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            # Log Activity
+            UserActivity.objects.create(
+                user=request.user, 
+                activity_type="Product Created", 
+                details=f"Added new product: {product.name}"
+            )
+            messages.success(request, "Product added successfully!")
+            return redirect('master_dashboard')
+    else:
+        form = ProductForm()
+    return render(request, 'store/product_form.html', {'form': form, 'title': 'Add New Product'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def edit_product_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            product = form.save()
+            # Log Activity
+            UserActivity.objects.create(
+                user=request.user, 
+                activity_type="Product Updated", 
+                details=f"Updated details for: {product.name}"
+            )
+            messages.success(request, "Product updated successfully!")
+            return redirect('master_dashboard')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'store/product_form.html', {'form': form, 'title': f'Edit {product.name}'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_product_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    product_name = product.name
+    if request.method == 'POST':
+        product.delete()
+        # Log Activity
+        UserActivity.objects.create(
+            user=request.user, 
+            activity_type="Product Deleted", 
+            details=f"Permanently deleted: {product_name}"
+        )
+        messages.success(request, "Product deleted successfully!")
+        return redirect('master_dashboard')
+    return redirect('master_dashboard')
+
+# FAQ Views
+@user_passes_test(lambda u: u.is_superuser)
+def add_faq_view(request):
+    if request.method == 'POST':
+        form = FAQForm(request.POST)
+        if form.is_valid():
+            faq = form.save()
+            UserActivity.objects.create(user=request.user, activity_type="FAQ Created", details=f"Added FAQ: {faq.question}")
+            messages.success(request, "FAQ added successfully!")
+            return redirect('master_dashboard')
+    else:
+        form = FAQForm()
+    return render(request, 'store/faq_form.html', {'form': form, 'title': 'Add New FAQ'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def edit_faq_view(request, pk):
+    faq = get_object_or_404(FAQ, pk=pk)
+    if request.method == 'POST':
+        form = FAQForm(request.POST, instance=faq)
+        if form.is_valid():
+            faq = form.save()
+            UserActivity.objects.create(user=request.user, activity_type="FAQ Updated", details=f"Updated FAQ: {faq.question}")
+            messages.success(request, "FAQ updated successfully!")
+            return redirect('master_dashboard')
+    else:
+        form = FAQForm(instance=faq)
+    return render(request, 'store/faq_form.html', {'form': form, 'title': 'Edit FAQ'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_faq_view(request, pk):
+    faq = get_object_or_404(FAQ, pk=pk)
+    question = faq.question
+    if request.method == 'POST':
+        faq.delete()
+        UserActivity.objects.create(user=request.user, activity_type="FAQ Deleted", details=f"Deleted FAQ: {question}")
+        messages.success(request, "FAQ deleted successfully!")
+    return redirect('master_dashboard')
+
+# Subscription Views
+@user_passes_test(lambda u: u.is_superuser)
+def add_subscription_view(request):
+    if request.method == 'POST':
+        form = SubscriptionPackForm(request.POST)
+        if form.is_valid():
+            sub = form.save()
+            UserActivity.objects.create(user=request.user, activity_type="Plan Created", details=f"Added Plan: {sub.name}")
+            messages.success(request, "Subscription Plan added successfully!")
+            return redirect('master_dashboard')
+    else:
+        form = SubscriptionPackForm()
+    return render(request, 'store/subscription_form.html', {'form': form, 'title': 'Add New Subscription Plan'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def edit_subscription_view(request, pk):
+    sub = get_object_or_404(SubscriptionPack, pk=pk)
+    if request.method == 'POST':
+        form = SubscriptionPackForm(request.POST, instance=sub)
+        if form.is_valid():
+            sub = form.save()
+            UserActivity.objects.create(user=request.user, activity_type="Plan Updated", details=f"Updated Plan: {sub.name}")
+            messages.success(request, "Subscription Plan updated successfully!")
+            return redirect('master_dashboard')
+    else:
+        form = SubscriptionPackForm(instance=sub)
+    return render(request, 'store/subscription_form.html', {'form': form, 'title': f'Edit {sub.name}'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_subscription_view(request, pk):
+    sub = get_object_or_404(SubscriptionPack, pk=pk)
+    name = sub.name
+    if request.method == 'POST':
+        sub.delete()
+        UserActivity.objects.create(user=request.user, activity_type="Plan Deleted", details=f"Deleted Plan: {name}")
+        messages.success(request, "Subscription Plan deleted successfully!")
+    return redirect('master_dashboard')
     
