@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
-from .models import Product, SubscriptionPack, FAQ, UserActivity
-from .forms import ProductForm, FAQForm, SubscriptionPackForm
+from .models import Product, SubscriptionPack, FAQ, UserActivity, Review
+from .forms import ProductForm, FAQForm, SubscriptionPackForm, ReviewForm
 from django.shortcuts import get_object_or_404
 
 
@@ -15,10 +15,12 @@ def index(request):
     products = Product.objects.all()
     subscription_packs = SubscriptionPack.objects.all()
     faqs = FAQ.objects.all()
+    reviews = Review.objects.filter(is_approved=True)[:6]  # Show only approved reviews, limit to 6
     context = {
         'products': products,
         'subscription_packs': subscription_packs,
         'faqs': faqs,
+        'reviews': reviews,
     }
     return render(request, 'store/index.html', context)
 
@@ -83,6 +85,8 @@ def admin_dashboard_view(request):
     products = Product.objects.all().order_by('-created_at')
     faqs = FAQ.objects.all().order_by('order')
     subscriptions = SubscriptionPack.objects.all()
+    pending_reviews = Review.objects.filter(is_approved=False).order_by('-created_at')
+    approved_reviews = Review.objects.filter(is_approved=True).order_by('-created_at')
     
     context = {
         'total_users': total_users,
@@ -92,6 +96,8 @@ def admin_dashboard_view(request):
         'products': products,
         'faqs': faqs,
         'subscriptions': subscriptions,
+        'pending_reviews': pending_reviews,
+        'approved_reviews': approved_reviews,
     }
     return render(request, 'store/admin_dashboard.html', context)
 
@@ -222,5 +228,41 @@ def delete_subscription_view(request, pk):
         sub.delete()
         UserActivity.objects.create(user=request.user, activity_type="Plan Deleted", details=f"Deleted Plan: {name}")
         messages.success(request, "Subscription Plan deleted successfully!")
+    return redirect('master_dashboard')
+
+# REVIEW MANAGEMENT VIEWS
+def submit_review_view(request):
+    """Public view for customers to submit reviews"""
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.is_approved = False  # Requires admin approval
+            review.save()
+            messages.success(request, "Thank you! Your review has been submitted and is awaiting approval.")
+            return redirect('index')
+    else:
+        form = ReviewForm()
+    return render(request, 'store/review_form.html', {'form': form})
+
+@user_passes_test(lambda u: u.is_superuser)
+def approve_review_view(request, pk):
+    """Admin view to approve a pending review"""
+    review = get_object_or_404(Review, pk=pk)
+    review.is_approved = True
+    review.save()
+    UserActivity.objects.create(user=request.user, activity_type="Review Approved", details=f"Approved review by {review.customer_name}")
+    messages.success(request, "Review approved successfully!")
+    return redirect('master_dashboard')
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_review_view(request, pk):
+    """Admin view to delete a review"""
+    review = get_object_or_404(Review, pk=pk)
+    customer_name = review.customer_name
+    if request.method == 'POST':
+        review.delete()
+        UserActivity.objects.create(user=request.user, activity_type="Review Deleted", details=f"Deleted review by {customer_name}")
+        messages.success(request, "Review deleted successfully!")
     return redirect('master_dashboard')
     

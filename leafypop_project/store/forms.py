@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, FAQ, SubscriptionPack
+from .models import Product, FAQ, SubscriptionPack, Review
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -33,5 +33,15 @@ class SubscriptionPackForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all text-sm', 'rows': 4, 'placeholder': 'Describe what is included...'}),
             'one_time_price': forms.NumberInput(attrs={'class': 'w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all font-bold text-sm', 'placeholder': '0.00'}),
             'monthly_plan_price': forms.NumberInput(attrs={'class': 'w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all font-bold text-sm', 'placeholder': '0.00'}),
+        }
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['customer_name', 'rating', 'review_text']
+        widgets = {
+            'customer_name': forms.TextInput(attrs={'class': 'w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all font-bold text-sm', 'placeholder': 'Your name'}),
+            'rating': forms.RadioSelect(attrs={'class': 'rating-radio'}),
+            'review_text': forms.Textarea(attrs={'class': 'w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all text-sm', 'rows': 4, 'placeholder': 'Share your experience with LeafyPop products...'}),
         }
 

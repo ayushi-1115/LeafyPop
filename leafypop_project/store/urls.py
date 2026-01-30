@@ -19,4 +19,9 @@ urlpatterns = [
     path('master-dashboard/add-plan/', views.add_subscription_view, name='add_subscription'),
     path('master-dashboard/edit-plan/<int:pk>/', views.edit_subscription_view, name='edit_subscription'),
     path('master-dashboard/delete-plan/<int:pk>/', views.delete_subscription_view, name='delete_subscription'),
+    
+    # Review URLs
+    path('submit-review/', views.submit_review_view, name='submit_review'),
+    path('master-dashboard/approve-review/<int:pk>/', views.approve_review_view, name='approve_review'),
+    path('master-dashboard/delete-review/<int:pk>/', views.delete_review_view, name='delete_review'),
 ]

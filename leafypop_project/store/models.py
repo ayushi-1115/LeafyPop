@@ -53,3 +53,19 @@ class UserActivity(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.activity_type} at {self.timestamp}"
+
+# Review Model: Customer testimonials/reviews
+class Review(models.Model):
+    RATING_CHOICES = [(i, '⭐' * i) for i in range(1, 6)]  # 1 to 5 stars
+    
+    customer_name = models.CharField(max_length=100)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=5)
+    review_text = models.TextField(max_length=500)
+    is_approved = models.BooleanField(default=False, help_text="Admin must approve before showing on site")
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.customer_name} - {'⭐' * self.rating}"
