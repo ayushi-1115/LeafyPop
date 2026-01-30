@@ -127,7 +127,8 @@
             <a href="{% url 'profile' %}" class="flex flex-col items-end group text-right">
               <span class="text-green-300 text-[10px] font-bold uppercase tracking-widest leading-none mb-1">My
                 Account</span>
-              <span class="text-white text-sm font-bold group-hover:text-green-200 transition-colors">{{ user.username }}</span>
+              <span class="text-white text-sm font-bold group-hover:text-green-200 transition-colors">{{ user.username
+                }}</span>
             </a>
             <a href="{% url 'logout' %}"
               class="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-white/20">Logout</a>
@@ -167,6 +168,13 @@
         <li class="pt-4 border-t border-green-700/50">
           {% if user.is_authenticated %}
           <div class="flex flex-col gap-3">
+            {% if user.is_superuser %}
+            <a href="{% url 'master_dashboard' %}"
+              class="block w-full bg-red-500 text-white p-3 rounded-xl border border-red-600 text-center shadow-lg">
+              <span class="block text-[10px] uppercase font-black tracking-widest leading-none">Admin Access</span>
+              <span class="block font-bold mt-1">Master Control</span>
+            </a>
+            {% endif %}
             <a href="{% url 'profile' %}"
               class="block w-full bg-green-700/50 text-white p-3 rounded-xl border border-green-600">
               <span class="block text-[10px] uppercase font-bold text-green-300 mb-1">Logged in as</span>
