@@ -574,8 +574,8 @@
         <!-- Social Media Icons -->
         <div class="flex justify-center items-center gap-6">
           <!-- Instagram -->
-          <a href="https://www.instagram.com/leafypop" target="_blank" rel="noopener noreferrer"
-            class="text-gray-300 hover:text-pink-400 transition-colors duration-300"
+          <a href="https://www.instagram.com/leafypop.in?utm_source=qr&igsh=MTFxNWhzZ2tzdml2dQ==" target="_blank"
+            rel="noopener noreferrer" class="text-gray-300 hover:text-pink-400 transition-colors duration-300"
             aria-label="Follow us on Instagram">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
               <path
@@ -636,15 +636,13 @@
       }
     }
 
-    // WhatsApp Multi-Admin Logic
+    // WhatsApp Logic
     let currentOrder = null;
 
     function openOrderModal(name, imageUrl = '', details = '') {
       currentOrder = { name, imageUrl, details };
       const modal = document.getElementById('orderModal');
       const content = document.getElementById('modalContent');
-      const s1 = document.getElementById('status1');
-      const s2 = document.getElementById('status2');
 
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -653,23 +651,15 @@
         content.classList.remove('scale-90', 'opacity-0');
         content.classList.add('scale-100', 'opacity-100');
 
-        // Step 1: Notify Admin 1
+        // Simulate "Syncing" for effect, then send to Primary Admin
         setTimeout(() => {
-          s1.classList.add('bg-green-50', 'text-green-700', 'border-green-100');
-          s1.querySelector('.status-dot').classList.add('bg-green-500');
-          s1.querySelector('.status-text').innerText = "Admin 1 Notified ✓";
-          sendDirect('918511489644');
+          document.getElementById('status1').querySelector('.status-text').innerText = "Connecting to Main Admin...";
+          document.getElementById('status1').classList.add('bg-green-50', 'text-green-700');
 
-          // Step 2: Notify Admin 2 (1.5s delay)
           setTimeout(() => {
-            s2.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-100');
-            s2.querySelector('.status-dot').classList.add('bg-blue-500');
-            s2.querySelector('.status-text').innerText = "Admin 2 Notified ✓";
-            sendDirect('919879620396');
-
-            // Final: Close automatically
-            setTimeout(closeOrderModal, 1500);
-          }, 1500);
+            sendDirect('918511489644'); // Primary Admin
+            closeOrderModal();
+          }, 1000);
         }, 800);
       }, 10);
     }
@@ -684,27 +674,19 @@
       setTimeout(() => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
-        // Reset status for next order
-        const s1 = document.getElementById('status1');
-        const s2 = document.getElementById('status2');
-        s1.className = "flex items-center gap-3 text-sm text-gray-400 bg-gray-50 p-4 rounded-2xl transition-all border border-transparent";
-        s2.className = "flex items-center gap-3 text-sm text-gray-400 bg-gray-50 p-4 rounded-2xl transition-all border border-transparent";
-        s1.querySelector('.status-dot').className = "w-2 h-2 bg-gray-300 rounded-full status-dot";
-        s2.querySelector('.status-dot').className = "w-2 h-2 bg-gray-300 rounded-full status-dot";
-        s1.querySelector('.status-text').innerText = "Connecting Admin 1...";
-        s2.querySelector('.status-text').innerText = "Connecting Admin 2...";
       }, 500);
     }
 
     function sendDirect(phone) {
       let message = "";
       if (currentOrder.details) {
-        message = `Hi LeafyPop! I'm interested in the ${currentOrder.name} subscription pack.%0A%0APack Details: ${currentOrder.details}`;
+        message = `Hi LeafyPop! I'm interested in the *${currentOrder.name}* subscription pack.\n\n📄 *Details:* ${currentOrder.details}`;
       } else {
-        message = `Hi LeafyPop! I would like to order ${currentOrder.name}.%0A%0AProduct Image: ${currentOrder.imageUrl}`;
+        message = `Hi LeafyPop! I would like to order *${currentOrder.name}*.\n\n🖼️ *Product:* ${currentOrder.imageUrl}`;
       }
 
-      const url = `https://wa.me/${phone}?text=${message}`;
+      // Use the standard API universally
+      const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
     }
   </script>
