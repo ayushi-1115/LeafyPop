@@ -257,7 +257,8 @@
 
                 <!-- Approved Reviews -->
                 <div class="p-8">
-                    <h3 class="text-sm font-black text-green-600 uppercase tracking-widest mb-4">✓ Approved & Live ({{ approved_reviews.count }})</h3>
+                    <h3 class="text-sm font-black text-green-600 uppercase tracking-widest mb-4">✓ Approved & Live ({{
+                        approved_reviews.count }})</h3>
                     {% if approved_reviews %}
                     <div class="max-h-[400px] overflow-y-auto custom-scrollbar space-y-3">
                         {% for review in approved_reviews %}
@@ -317,8 +318,10 @@
                                         <div class="flex gap-4">
                                             <span class="text-xs font-black text-gray-300">#{{ faq.order }}</span>
                                             <div>
-                                                <p class="text-sm font-black text-gray-900 line-clamp-1">{{ faq.question }}</p>
-                                                <p class="text-[10px] text-gray-400 line-clamp-1 mt-0.5">{{ faq.answer }}</p>
+                                                <p class="text-sm font-black text-gray-900 line-clamp-1">{{ faq.question
+                                                    }}</p>
+                                                <p class="text-[10px] text-gray-400 line-clamp-1 mt-0.5">{{ faq.answer
+                                                    }}</p>
                                             </div>
                                         </div>
                                     </td>
