@@ -499,7 +499,13 @@
               {% for i in "12345" %}
               {% if forloop.counter <= review.rating %}⭐{% endif %} {% endfor %} </div>
             </div>
-            <p class="text-gray-600 text-sm leading-relaxed">{{ review.review_text }}</p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ review.review_text }}</p>
+            {% if review.image %}
+            <div class="mt-4 rounded-xl overflow-hidden border border-gray-100">
+              <img src="{{ review.image.url }}" alt="Review by {{ review.customer_name }}"
+                class="w-full h-48 object-cover">
+            </div>
+            {% endif %}
           </div>
           {% endfor %}
         </div>

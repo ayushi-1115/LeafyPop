@@ -234,7 +234,7 @@ def delete_subscription_view(request, pk):
 def submit_review_view(request):
     """Public view for customers to submit reviews"""
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review = form.save(commit=False)
             review.is_approved = False  # Requires admin approval

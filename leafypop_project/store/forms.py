@@ -38,10 +38,11 @@ class SubscriptionPackForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['customer_name', 'rating', 'review_text']
+        fields = ['customer_name', 'rating', 'review_text', 'image']
         widgets = {
             'customer_name': forms.TextInput(attrs={'class': 'w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all font-bold text-sm', 'placeholder': 'Your name'}),
             'rating': forms.RadioSelect(attrs={'class': 'rating-radio'}),
             'review_text': forms.Textarea(attrs={'class': 'w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all text-sm', 'rows': 4, 'placeholder': 'Share your experience with LeafyPop products...'}),
+            'image': forms.FileInput(attrs={'class': 'w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-green-500 focus:bg-white transition-all text-sm'}),
         }
 

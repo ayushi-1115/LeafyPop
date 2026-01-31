@@ -235,6 +235,13 @@
                                 {% if forloop.counter <= review.rating %}⭐{% endif %} {% endfor %} </div>
                             </div>
                             <p class="text-sm text-gray-700 mb-4">{{ review.review_text }}</p>
+                            {% if review.image %}
+                            <div class="mb-4">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase mb-1">Attached Image:</p>
+                                <img src="{{ review.image.url }}"
+                                    class="w-32 h-32 object-cover rounded-xl border border-orange-200">
+                            </div>
+                            {% endif %}
                             <div class="flex gap-2">
                                 <a href="{% url 'approve_review' review.pk %}"
                                     class="bg-green-600 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-green-700 transition-all">
@@ -271,6 +278,10 @@
                                             {% if forloop.counter <= review.rating %}⭐{% endif %} {% endfor %} </span>
                                     </div>
                                     <p class="text-xs text-gray-600">{{ review.review_text }}</p>
+                                    {% if review.image %}
+                                    <img src="{{ review.image.url }}"
+                                        class="mt-2 w-16 h-16 object-cover rounded-lg border border-green-200">
+                                    {% endif %}
                                     <p class="text-[10px] text-gray-400 mt-1">{{ review.created_at|date:"d M Y" }}</p>
                                 </div>
                                 <form method="post" action="{% url 'delete_review' review.pk %}"

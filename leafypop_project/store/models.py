@@ -61,6 +61,7 @@ class Review(models.Model):
     customer_name = models.CharField(max_length=100)
     rating = models.IntegerField(choices=RATING_CHOICES, default=5)
     review_text = models.TextField(max_length=500)
+    image = models.ImageField(upload_to='reviews/', null=True, blank=True)
     is_approved = models.BooleanField(default=False, help_text="Admin must approve before showing on site")
     created_at = models.DateTimeField(auto_now_add=True)
     
