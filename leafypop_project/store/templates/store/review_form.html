@@ -58,7 +58,7 @@
                     {% for value, label in form.rating.field.choices %}
                     <div class="relative">
                         <input type="radio" id="rating-{{ value }}" name="rating" value="{{ value }}"
-                            class="absolute opacity-0 w-8 h-8 cursor-pointer z-10" {% if value==5 %}checked{% endif %}>
+                            class="absolute opacity-0 w-8 h-8 cursor-pointer z-10" {% if value == 5 %}checked{% endif %}>
                         <label for="rating-{{ value }}" id="label-{{ value }}"
                             class="text-3xl text-gray-300 cursor-pointer transition-colors hover:text-yellow-400">⭐</label>
                     </div>
