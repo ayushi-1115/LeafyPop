@@ -220,8 +220,7 @@
             <!-- Pending Reviews -->
             {% if pending_reviews %}
             <div class="p-8 border-b border-gray-50">
-                <h3 class="text-sm font-black text-orange-600 uppercase tracking-widest mb-4">⏳ Pending Approval ({{
-                    pending_reviews.count }})</h3>
+                <h3 class="text-sm font-black text-orange-600 uppercase tracking-widest mb-4">⏳ Pending Approval ({{ pending_reviews.count }})</h3>
                 <div class="space-y-4">
                     {% for review in pending_reviews %}
                     <div class="bg-orange-50 rounded-2xl p-6 border-2 border-orange-200">
