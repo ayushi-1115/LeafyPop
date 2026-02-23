@@ -273,7 +273,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20" data-aos="fade-up">
         <div class="order-2 lg:order-1 relative">
           <div class="absolute -inset-4 bg-green-100 rounded-[2rem] transform -rotate-2 z-0"></div>
-          <img src="/media/products/mix_microgreen.jpeg" alt="Fresh Microgreens Tray"
+          <img src="{% static 'store/images/education_real.jpeg' %}" alt="Fresh Microgreens Tray"
             class="relative z-10 w-full h-80 object-cover rounded-[1.5rem] shadow-xl transform rotate-1 hover:rotate-0 transition-transform duration-500">
         </div>
 
@@ -594,9 +594,10 @@
             <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ review.review_text }}</p>
             {% if review.image %}
             <div
-              class="mt-4 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex justify-center items-center">
+              class="mt-4 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex justify-center items-center image-container">
               <img src="{{ review.image.url }}" alt="Review by {{ review.customer_name }}"
-                class="w-full h-auto max-h-[500px] object-contain">
+                class="w-full h-auto max-h-[500px] object-contain"
+                onerror="this.closest('.image-container').style.display='none'">
             </div>
             {% endif %}
           </div>
