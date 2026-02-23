@@ -8,7 +8,10 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import Product, SubscriptionPack, FAQ, UserActivity, Review
 from .forms import ProductForm, FAQForm, SubscriptionPackForm, ReviewForm
 from django.shortcuts import get_object_or_404
-
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
+import os
 
 # INDEX VIEW: Fetches all data and renders the Home Page
 def index(request):
@@ -265,4 +268,65 @@ def delete_review_view(request, pk):
         UserActivity.objects.create(user=request.user, activity_type="Review Deleted", details=f"Deleted review by {customer_name}")
         messages.success(request, "Review deleted successfully!")
     return redirect('master_dashboard')
+
+from django.views.decorators.csrf import csrf_exempt
+
+# @login_required
+@csrf_exempt
+def send_order_email(request):
+    """
+    API View to send Email notifications to admins when a user shows interest.
+    """
+    if request.method == 'POST':
+        import json
+        data = json.loads(request.body)
+        order_name = data.get('name')
+        order_details = data.get('details', '')
+        image_url = data.get('imageUrl', '')
+        custom_message = data.get('message')
+        
+        # Identification fields (optional)
+        customer_name = data.get('customer_name', 'Anonymous')
+        customer_phone = data.get('customer_phone', 'Not provided')
+        
+        # Build Email Content
+        if custom_message:
+            subject = f"💬 New Support Query from {customer_name}"
+            message_body = (
+                f"New Support Query:\n\n"
+                f"Customer: {customer_name}\n"
+                f"Phone: {customer_phone}\n"
+                f"Message: {custom_message}\n"
+            )
+        else:
+            subject = f"🚀 New Order Interest: {order_name}"
+            message_body = (
+                f"New Order Interest!\n\n"
+                f"Product: {order_name}\n"
+                f"Details: {order_details}\n"
+                f"Customer: {customer_name}\n"
+                f"Phone: {customer_phone}\n"
+                f"Image: {image_url}\n"
+            )
+            
+        admin_emails = ['ayushisp1115@gmail.com']
+
+        try:
+            send_mail(
+                subject,
+                message_body,
+                settings.DEFAULT_FROM_EMAIL,
+                admin_emails,
+                fail_silently=False,
+            )
+            print(f"✅ Success! Email sent to {admin_emails}")
+            return JsonResponse({
+                'status': 'success', 
+                'message': f'Notified admins via email successfully'
+            })
+        except Exception as e:
+            print(f"❌ Email Error: {str(e)}")
+            return JsonResponse({'status': 'error', 'message': 'Failed to send email. Check console.'}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
     

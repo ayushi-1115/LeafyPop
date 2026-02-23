@@ -24,4 +24,5 @@ urlpatterns = [
     path('submit-review/', views.submit_review_view, name='submit_review'),
     path('master-dashboard/approve-review/<int:pk>/', views.approve_review_view, name='approve_review'),
     path('master-dashboard/delete-review/<int:pk>/', views.delete_review_view, name='delete_review'),
+    path('api/send-order-email/', views.send_order_email, name='send_order_email'),
 ]
