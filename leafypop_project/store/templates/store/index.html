@@ -580,8 +580,8 @@
       {% if reviews %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 items-start">
         {% for review in reviews %}
-        <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all" data-aos="fade-up"
-          data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all h-fit self-start"
+          data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
           <div class="flex items-center justify-between mb-4">
             <div>
               <h4 class="font-bold text-gray-900">{{ review.customer_name }}</h4>
