@@ -137,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if os.environ.get('CLOUDINARY_URL'):
     # Legacy settings for compatibility with third-party apps
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
     
     # Use Cloudinary for Media (Django 5.x way)
     STORAGES = {
@@ -145,20 +145,20 @@ if os.environ.get('CLOUDINARY_URL'):
             "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+            "BACKEND": "whitenoise.storage.StaticFilesStorage",
         },
     }
 else:
     # Fallback for Local/Development
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
     
     STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+            "BACKEND": "whitenoise.storage.StaticFilesStorage",
         },
     }
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
