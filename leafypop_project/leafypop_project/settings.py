@@ -135,7 +135,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary Settings
 if os.environ.get('CLOUDINARY_URL'):
-    # Use Cloudinary for Media
+    # Legacy settings for compatibility with third-party apps
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
+    # Use Cloudinary for Media (Django 5.x way)
     STORAGES = {
         "default": {
             "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -146,6 +150,9 @@ if os.environ.get('CLOUDINARY_URL'):
     }
 else:
     # Fallback for Local/Development
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
     STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
