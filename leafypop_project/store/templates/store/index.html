@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{% static 'store/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'store/style.css' %}?v=1.1" />
   <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -66,7 +66,7 @@
       <div class="space-y-4">
         <!-- One-Click Order Button -->
 
-        <button onclick="sendSequential()"
+        <button onclick="sendSequential(event)"
           class="w-full flex items-center justify-center gap-3 p-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl transition-all shadow-lg active:scale-95 group">
           <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
             <path
@@ -87,7 +87,7 @@
         <!-- Logo -->
         <div class="flex items-center gap-3">
           <!-- Logo Icon -->
-          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023064/static_assets/leafy_pop.png"
+          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023064/static_assets/leafy_pop.png?v=1.1"
             alt="LeafyPop Icon" class="h-12 w-auto object-contain drop-shadow-md">
 
           <!-- Company Name & Tagline -->
@@ -216,7 +216,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
-          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023068/static_assets/mascot.jpg"
+          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023068/static_assets/mascot.jpg?v=1.1"
             alt="LeafyPop Mascot" class="h-40 md:h-56 mx-auto mb-2 object-contain mix-blend-multiply animate-float">
           <p class="text-lg md:text-xl text-gray-600 mb-6 max-w-2xl mx-auto">Fresh • Natural • Eco-Friendly Plant
             Products</p>
@@ -296,7 +296,8 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20" data-aos="fade-up">
         <div class="order-2 lg:order-1 relative">
           <div class="absolute -inset-4 bg-green-100 rounded-[2rem] transform -rotate-2 z-0"></div>
-          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023069/static_assets/education_real.jpg"
+          <img
+            src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023069/static_assets/education_real.jpg?v=1.1"
             alt="Fresh Microgreens Tray"
             class="relative z-10 w-full h-80 object-cover rounded-[1.5rem] shadow-xl transform rotate-1 hover:rotate-0 transition-transform duration-500">
         </div>
@@ -808,7 +809,7 @@
       }, 500);
     }
 
-    async function sendSequential() {
+    async function sendSequential(event) {
       const btn = event.currentTarget;
       const originalContent = btn.innerHTML;
 

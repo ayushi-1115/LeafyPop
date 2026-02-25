@@ -51,8 +51,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -139,7 +139,8 @@ if os.environ.get('CLOUDINARY_URL'):
     # Legacy settings for compatibility with django-cloudinary-storage and other apps
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
-    WHITENOISE_USE_FINDERS = True # Fallback for Render
+    WHITENOISE_USE_FINDERS = True 
+    WHITENOISE_MANIFEST_STRICT = False # Prevent errors if files are temporarily missing
     
     # Use Cloudinary for Media, WhiteNoise for Static (Django 5.x way)
     STORAGES = {
