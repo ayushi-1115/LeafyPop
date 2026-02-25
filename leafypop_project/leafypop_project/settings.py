@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -165,9 +166,12 @@ else:
 
 MEDIA_URL = '/media/'
 
-# Static Files (Stored in GitHub)
+# Static Files (Stored in GitHub, collected by WhiteNoise)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# Include both the app's own static folder and any project-level static dir
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'store', 'static'),
+]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # --- EMAIL CONFIGURATION ---

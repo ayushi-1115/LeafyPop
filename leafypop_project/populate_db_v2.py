@@ -73,7 +73,12 @@ for data in products_data:
     p, created = Product.objects.get_or_create(name=data['name'])
     p.price_50g = data['price_50g']
     p.price_100g = data['price_100g']
-    p.image = data['image']
+    
+    # Only set image if it's missing or newly created
+    # This prevents overwriting Cloudinary URLs with local strings on every deploy
+    if created or not p.image:
+        p.image = data['image']
+        
     if not p.description or p.description == "Fresh and natural microgreens.":
         p.description = data['description']
     p.save()
