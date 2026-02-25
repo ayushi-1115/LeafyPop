@@ -329,4 +329,10 @@ def send_order_email(request):
             return JsonResponse({'status': 'error', 'message': 'Failed to send email. Check console.'}, status=500)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+
+def health(request):
+    """
+    Lightweight health check endpoint for pings/cron jobs.
+    """
+    return JsonResponse({"status": "ok"})
     

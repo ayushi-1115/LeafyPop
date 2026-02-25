@@ -25,4 +25,5 @@ urlpatterns = [
     path('master-dashboard/approve-review/<int:pk>/', views.approve_review_view, name='approve_review'),
     path('master-dashboard/delete-review/<int:pk>/', views.delete_review_view, name='delete_review'),
     path('api/send-order-email/', views.send_order_email, name='send_order_email'),
+    path('health/', views.health, name='health'),
 ]
