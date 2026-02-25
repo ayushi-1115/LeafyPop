@@ -67,7 +67,7 @@ products_data = [
         'name': 'Leafypop Mix Microgreens',
         'price_50g': 90,
         'price_100g': 160,
-        'image_file': 'leafypopp.jpeg',
+        'image_file': 'mix_microgreen.jpeg',
         'description': 'A healthy mix of our best microgreens.',
     },
 ]
