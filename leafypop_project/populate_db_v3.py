@@ -75,6 +75,10 @@ products_data = [
 # -- Populate Products ---------------------------------------------------------
 print('')
 print('== Populating Products (with Image Upload) ==')
+
+# Clear existing products to ensure clean names and Cloudinary sync
+Product.objects.all().delete()
+
 for data in products_data:
     p, created = Product.objects.get_or_create(name=data['name'])
     p.price_50g = data['price_50g']
