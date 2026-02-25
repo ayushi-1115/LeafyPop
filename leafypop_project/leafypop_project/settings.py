@@ -136,11 +136,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary Settings
 if os.environ.get('CLOUDINARY_URL'):
-    # Legacy settings for compatibility with third-party apps
+    # Legacy settings for compatibility with django-cloudinary-storage and other apps
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
     
-    # Use Cloudinary for Media (Django 5.x way)
+    # Use Cloudinary for Media, WhiteNoise for Static (Django 5.x way)
     STORAGES = {
         "default": {
             "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -152,14 +152,14 @@ if os.environ.get('CLOUDINARY_URL'):
 else:
     # Fallback for Local/Development
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     
     STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
         },
         "staticfiles": {
-            "BACKEND": "whitenoise.storage.StaticFilesStorage",
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -168,11 +168,11 @@ MEDIA_URL = '/media/'
 
 # Static Files (Stored in GitHub, collected by WhiteNoise)
 STATIC_URL = '/static/'
-# Include both the app's own static folder and any project-level static dir
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'store', 'static'),
-]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# We don't need to add 'store/static' to STATICFILES_DIRS if APP_DIRS is True 
+# in TEMPLATES (which it is). Adding it can cause redundancy errors.
+STATICFILES_DIRS = []
 
 # --- EMAIL CONFIGURATION ---
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
