@@ -520,9 +520,20 @@
         <div
           class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
           data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-          <div class="aspect-square bg-gray-100 overflow-hidden">
+          <div class="aspect-square bg-gray-100 overflow-hidden relative">
             <img src="{{ product.image.url }}" alt="{{ product.name }}"
-              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+              class="w-full h-full object-cover transition-transform duration-300 {% if product.is_in_stock %}hover:scale-105{% else %}opacity-40 grayscale{% endif %}">
+
+            {% if not product.is_in_stock %}
+            <!-- OUT OF STOCK OVERLAY -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div
+                class="bg-red-800 text-white w-24 h-24 rounded-full flex flex-col items-center justify-center shadow-2xl transform -rotate-12 border-4 border-white">
+                <span
+                  class="font-black text-center text-sm leading-tight tracking-widest pl-1">OUT<br>OF<br>STOCK</span>
+              </div>
+            </div>
+            {% endif %}
           </div>
           <div class="p-5 flex-grow">
             <h3 class="text-lg font-bold mb-2 text-gray-900">{{ product.name }}</h3>
@@ -539,11 +550,18 @@
             </div>
           </div>
           <div class="px-5 pb-5">
+            {% if product.is_in_stock %}
             <button
               onclick="openOrderModal('{{ product.name }}', '{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}')"
-              class="block w-full text-center bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors text-sm font-semibold">
+              class="block w-full text-center bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors text-sm font-semibold shadow-md active:scale-95">
               Order Now
             </button>
+            {% else %}
+            <button disabled
+              class="block w-full text-center bg-gray-300 text-gray-500 py-2 rounded-md cursor-not-allowed text-sm font-semibold border border-gray-200">
+              Not Available
+            </button>
+            {% endif %}
           </div>
         </div>
         {% endfor %}
