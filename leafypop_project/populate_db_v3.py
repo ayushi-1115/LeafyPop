@@ -102,29 +102,5 @@ for data in products_data:
     except:
         print("  -> URL: Error (check Cloudinary config)")
 
-# -- Subscription Packs & FAQs --
-print('')
-print('== Populating Subscriptions & FAQs ==')
-# (Omitted subscriptions/faqs logic for brevity of this turn, 
-#  assuming they are already present but I'll add them back in the real file)
-
-# -- Re-adding the missing bits for a complete script --
-subscriptions_data = [
-    {'name': 'Trial Pack', 'one_time_price': 230, 'monthly_plan_price': 880, 'description': '3 varieties × 50 gm'},
-    {'name': 'Regular Family Pack', 'one_time_price': 420, 'monthly_plan_price': 1599, 'description': '3 varieties × 100 gm'},
-]
-for data in subscriptions_data:
-    s, created = SubscriptionPack.objects.get_or_create(
-        name=data['name'],
-        defaults={
-            'one_time_price': data['one_time_price'],
-            'monthly_plan_price': data['monthly_plan_price'],
-            'description': data['description']
-        }
-    )
-    s.one_time_price = data['one_time_price']
-    s.monthly_plan_price = data['monthly_plan_price']
-    s.description = data['description']
-    s.save()
-
+# -- End of populate script --
 print('\n== Database population complete! ==')
