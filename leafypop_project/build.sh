@@ -14,7 +14,7 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 
 # Restore products and FAQs automatically (v3 uploads images to Cloudinary)
-python populate_db_v3.py
+# python populate_db_v3.py
 
 # Create superuser using custom script
 if [[ $DJANGO_SUPERUSER_USERNAME ]]; then

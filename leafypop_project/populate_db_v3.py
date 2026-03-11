@@ -74,29 +74,29 @@ products_data = [
 
 # -- Populate Products ---------------------------------------------------------
 print('')
-print('== Populating Products (with Image Upload) ==')
-
-# Clear existing products to ensure clean names and Cloudinary sync
-Product.objects.all().delete()
+print('== Populating Products (Safe Mode: Creates only if missing) ==')
 
 for data in products_data:
+    # We only create the product if it doesn't exist.
+    # We DO NOT update existing products to avoid overwriting client dashboard changes.
     p, created = Product.objects.get_or_create(name=data['name'])
-    p.price_50g = data['price_50g']
-    p.price_100g = data['price_100g']
-    p.description = data['description']
-
-    local_path = STATIC_IMAGES_DIR / data['image_file']
-    if local_path.exists():
-        print(f"  Uploading {data['image_file']} for {p.name}...")
-        with open(local_path, 'rb') as f:
-            # save=True will commit to DB, Cloudinary storage will handle the upload
-            p.image.save(data['image_file'], File(f), save=True)
-    else:
-        print(f"  [WARNING] Image {data['image_file']} not found locally.")
-        p.save()
     
-    status = 'Created' if created else 'Updated'
-    print(f"  {status}: {p.name}")
+    if created:
+        p.price_50g = data['price_50g']
+        p.price_100g = data['price_100g']
+        p.description = data['description']
+
+        local_path = STATIC_IMAGES_DIR / data['image_file']
+        if local_path.exists():
+            print(f"  Uploading {data['image_file']} for {p.name}...")
+            with open(local_path, 'rb') as f:
+                p.image.save(data['image_file'], File(f), save=True)
+        else:
+            print(f"  [WARNING] Image {data['image_file']} not found locally.")
+            p.save()
+        print(f"  Created: {p.name}")
+    else:
+        print(f"  Skipped (Already exists): {p.name}")
     try:
         print(f"  -> URL: {p.image.url}")
     except:

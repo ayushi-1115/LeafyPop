@@ -603,7 +603,7 @@
           {% endif %}
 
           {% if 'Monthly' in pack.name or 'Booster' in pack.name %}
-          <!-- Monthly Booster Pack Formatting (Custom UI per sketch) -->
+          <!-- Monthly Booster Pack (Blue theme for distinction with asterisk notes) -->
           <div
             class="bg-blue-50 rounded-2xl p-8 border-2 border-blue-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between relative overflow-hidden">
             <div
@@ -616,8 +616,18 @@
                 varieties{% endif %}</p>
 
               <div
-                class="bg-white p-4 rounded-xl shadow-sm border border-blue-200 mb-4 inline-block w-full text-center">
-                <span class="text-lg font-black text-blue-800 tracking-wide block py-2">* Get 5% Discount *</span>
+                class="bg-white p-4 rounded-xl shadow-sm border border-blue-200 mb-6 inline-block w-full text-center">
+                <span class="text-lg font-black text-blue-800 tracking-wide block py-1 font-bold">* Get 5% Discount
+                  *</span>
+              </div>
+
+              <!-- Details with * as requested -->
+              <div class="space-y-2">
+                <p class="text-[11px] text-blue-800 font-semibold italic">* For monthly plan, products will be delivered
+                  weekly as per the pack selected.</p>
+                <p class="text-[11px] text-blue-800 font-semibold italic">* Payment to be done weekly as the product is
+                  delivered for monthly packs.</p>
+                <p class="text-[11px] text-blue-800 font-semibold italic">* 100% advance payment to be done.</p>
               </div>
             </div>
 
@@ -632,17 +642,7 @@
 
         </div>
 
-        <!-- Note Section -->
-        <div class="mt-12 bg-gray-50 rounded-xl p-6 max-w-2xl mx-auto border border-gray-100">
-          <h4 class="font-bold text-gray-800 mb-3">Subscription Details:</h4>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc pl-5">
-            <li>Varieties cannot be same for a particular pack.</li>
-            <li>For monthly plan, products will be delivered weekly as per the pack selected.</li>
-            <li>Payment to be done weekly as the product is delivered for monthly packs.</li>
-            <li>100% advance payment to be done.</li>
-            <li><strong>Offer:</strong> Advance prepaid payment for full month will get <strong>5% off</strong>.</li>
-          </ul>
-        </div>
+        <!-- Note Section removed per client feedback -->
       </div>
     </div>
   </section>
