@@ -585,8 +585,8 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-green-800 mb-2">{{ pack.name }}</h3>
-              <p class="text-gray-600 mb-6 font-medium">{{ pack.description|default:"Pick any 3 varieties &times; 50
-                gm"|safe }}</p>
+              <p class="text-gray-600 mb-6 font-medium">{% if pack.description %}{{ pack.description }}{% else %}Pick
+                any 3 varieties &times; 50 gm{% endif %}</p>
 
               <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-4 inline-block pr-12">
                 <span class="block text-xs uppercase tracking-wider text-gray-400 mb-1">One-Time</span>
@@ -612,8 +612,8 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-blue-900 mb-2">{{ pack.name }}</h3>
-              <p class="text-gray-700 mb-4 font-medium">{{ pack.description|default:"Min 3 varieties &times; 50 gm"|safe
-                }}</p>
+              <p class="text-gray-700 mb-4 font-medium">{% if pack.description %}{{ pack.description }}{% else %}Min 3
+                varieties{% endif %}</p>
 
               <div
                 class="bg-white p-4 rounded-xl shadow-sm border border-blue-200 mb-4 inline-block w-full text-center">
