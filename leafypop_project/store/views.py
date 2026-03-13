@@ -242,6 +242,12 @@ def submit_review_view(request):
             review = form.save(commit=False)
             review.is_approved = False  # Requires admin approval
             review.save()
+            # Log Activity (This will trigger the auto-email signal)
+            UserActivity.objects.create(
+                user=User.objects.get(username='leafypop'), # Map to site owner for public actions
+                activity_type="New Review Submitted",
+                details=f"By: {review.customer_name} - Rating: {review.rating} STARS"
+            )
             messages.success(request, "Thank you! Your review has been submitted and is awaiting approval.")
             return redirect('index')
     else:
@@ -309,7 +315,14 @@ def send_order_email(request):
                 f"Image: {image_url}\n"
             )
             
-        admin_emails = ['ayushisp1115@gmail.com']
+        # Log this interaction to the Dashboard (triggers the auto-email signal)
+        UserActivity.objects.create(
+            user=User.objects.get(username='leafypop'), # Map to site owner
+            activity_type="Order/Support Request",
+            details=f"Product: {order_name or 'N/A'} | Customer: {customer_name}"
+        )
+            
+        admin_emails = ['leafypop.eco@gmail.com']
 
         try:
             send_mail(

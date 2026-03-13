@@ -1,4 +1,8 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Product Model: Defines the structure for microgreen products in the database
 class Product(models.Model):
@@ -70,3 +74,32 @@ class Review(models.Model):
     
     def __str__(self):
         return f"{self.customer_name} - {'⭐' * self.rating}"
+
+# --- SIGNALS FOR AUTO-NOTIFICATIONS ---
+@receiver(post_save, sender=UserActivity)
+def send_activity_notification(sender, instance, created, **kwargs):
+    """
+    Automatically sends an email to the admin whenever a new activity is logged.
+    This ensures the client stays informed about all site interactions.
+    """
+    if created:
+        admin_emails = ['leafypop.eco@gmail.com']
+        subject = f"🔔 Site Activity: {instance.activity_type}"
+        message = (
+            f"Movement detected on LeafyPop:\n\n"
+            f"User: {instance.user.username}\n"
+            f"Action: {instance.activity_type}\n"
+            f"Details: {instance.details or 'None'}\n"
+            f"Time: {instance.timestamp.strftime('%Y-%m-%d %H:%M:%S')}\n"
+        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                admin_emails,
+                fail_silently=True
+            )
+        except Exception as e:
+            # Silent fail to prevent user-facing errors if email config is missing
+            print(f"Admin Notification Error: {e}")

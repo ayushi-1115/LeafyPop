@@ -178,5 +178,5 @@ STATICFILES_DIRS = []
 
 # --- EMAIL CONFIGURATION ---
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'ayushisp1132@gmail.com'
+DEFAULT_FROM_EMAIL = 'leafypop.eco@gmail.com'
 
