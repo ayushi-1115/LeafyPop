@@ -651,35 +651,27 @@
   <section class="py-12 bg-gray-50/50">
     <div class="max-w-7xl mx-auto px-4" data-aos="fade-up">
       <div class="flex flex-col items-center">
-        <div class="inline-flex items-center gap-6 bg-white px-8 py-4 rounded-[2rem] shadow-sm border border-green-100/50">
+        <div class="flex flex-col items-center bg-white px-10 py-8 rounded-[2rem] shadow-sm border border-green-100/50 hover:shadow-md transition-shadow">
           <!-- Premium FSSAI Identity -->
-          <div class="flex items-center gap-3 pr-6 border-r border-gray-100">
-            <div class="bg-blue-50 p-1.5 rounded-lg shadow-inner">
-              <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="120" height="40" rx="4" fill="white" />
-                <text x="10" y="28" font-family="Arial, sans-serif" font-weight="black" font-size="24"
-                  fill="#1A4A8E">fssai</text>
-                <circle cx="105" cy="15" r="4" fill="#4CAF50" />
-                <path d="M100 25C105 20 115 20 110 30" stroke="#E67E22" stroke-width="2" />
-              </svg>
-            </div>
+          <div class="mb-4 bg-white p-2 rounded-xl shadow-inner border border-gray-50 flex justify-center items-center">
+            <img src="{% static 'store/images/fssaii.jpeg' %}" alt="FSSAI Logo" class="h-24 md:h-28 w-auto object-contain mix-blend-multiply">
           </div>
 
           <!-- License Details -->
-          <div class="flex flex-col">
-            <div class="flex items-center gap-2 mb-0.5">
-              <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span class="text-[10px] uppercase font-black tracking-[0.2em] text-green-700">Certified Quality</span>
+          <div class="flex flex-col items-center text-center gap-2">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shadow-lg shadow-green-500/50"></span>
+              <span class="text-sm md:text-base uppercase font-black tracking-widest text-green-700">FSSAI Registered</span>
             </div>
-            <div class="flex items-baseline gap-1.5">
-              <span class="text-[11px] font-bold text-gray-400 uppercase">License:</span>
-              <span class="text-base font-black text-gray-900 tracking-tight">23625031006137</span>
+            <div class="flex items-baseline gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+              <span class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">License Number:</span>
+              <span class="text-base md:text-lg font-black text-gray-900 tracking-tight">23625031006137</span>
             </div>
           </div>
         </div>
         
         <!-- Trust Text -->
-        <p class="mt-4 text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center">
+        <p class="mt-6 text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center">
           100% Food Safety Compliant • Sourced with Integrity
         </p>
       </div>
