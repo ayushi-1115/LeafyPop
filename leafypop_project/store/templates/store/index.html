@@ -10,6 +10,8 @@
     content="LeafyPop offers 100% natural, pesticide-free microgreens delivered fresh to your doorstep. Boost your health with our vibrant, nutrient-dense greens.">
   <meta name="keywords" content="Microgreens, LeafyPop, Healthy Food, Organic Greens, Superfoods, Fresh Produce India">
   <meta name="author" content="LeafyPop">
+  <!-- Favicon / Browser Tab Icon -->
+  <link rel="icon" type="image/png" href="{% static 'store/images/leafy_pop.png' %}">
 
   <!-- Open Graph / Facebook / Instagram -->
   <meta property="og:type" content="website">
@@ -32,8 +34,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .font-elegant { font-family: 'Playfair Display', serif; }
+    
+    /* Elegant Centered Divider (Line with Dot) */
+    .heading-underline { position: relative; display: inline-block; padding-bottom: 0.8rem; }
+    .heading-underline::after { content: ''; position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); width: 80px; height: 1px; background-color: #16a34a; }
+    .heading-underline::before { content: ''; position: absolute; left: 50%; bottom: 2px; transform: translateX(-50%); width: 5px; height: 5px; background-color: #16a34a; border-radius: 50%; z-index: 1; }
+    
+    /* Elegant Left-Aligned Divider */
+    .heading-underline-left { position: relative; display: inline-block; padding-bottom: 0.8rem; }
+    .heading-underline-left::after { content: ''; position: absolute; left: 0; bottom: 4px; width: 80px; height: 1px; background-color: #16a34a; }
+    .heading-underline-left::before { content: ''; position: absolute; left: 40px; bottom: 2px; transform: translateX(-50%); width: 5px; height: 5px; background-color: #16a34a; border-radius: 50%; z-index: 1; }
+  </style>
   <link rel="stylesheet" href="{% static 'store/style.css' %}?v=1.1" />
   <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -80,129 +95,75 @@
         class="mt-8 text-xs font-bold text-gray-400 hover:text-gray-600 uppercase tracking-widest">Cancel</button>
     </div>
   </div>
-  <!-- NAVBAR - AllThatGrows Style -->
-  <nav class="sticky top-0 w-full bg-green-800 shadow-md z-50">
+  <!-- NAVBAR - LeafyPop Elegant Style -->
+  <nav class="sticky top-0 w-full bg-white shadow-md z-50 transition-all duration-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
+      <div class="flex justify-between items-center h-16 md:h-20">
         <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <!-- Logo Icon -->
-          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023064/static_assets/leafy_pop.png?v=1.1"
-            alt="LeafyPop Icon" class="h-12 w-auto object-contain drop-shadow-md">
-
-          <!-- Company Name & Tagline -->
-          <div class="flex flex-col items-start leading-none justify-center">
-            <span class="leafypop-logo text-white flex items-center text-xl md:text-2xl mb-0.5"
-              style="font-family: 'Fredoka One', cursive; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
-              Leaf<span class="text-green-300">y</span>P
-              <span class="inline-block mx-1 text-2xl md:text-3xl transform -rotate-12 animate-bounce">🌱</span>
-              p
-            </span>
-            <span class="text-[10px] md:text-[11px] text-green-100 font-medium tracking-wide uppercase opacity-90">Next
-              Gen Nutrition</span>
-          </div>
+        <div class="flex items-center h-full">
+          <a href="#home" class="block h-full flex items-center gap-2 md:gap-3 pl-2 md:pl-4">
+            <!-- Original Brand Icon - Balanced size -->
+            <img src="{% static 'store/images/leafy_pop.png' %}" alt="LeafyPop Icon" class="h-8 md:h-10 w-auto object-contain drop-shadow-sm">
+            <!-- Company Name Image - Balanced size -->
+            <img src="{% static 'store/images/companyname_transparent.png' %}" alt="LeafyPop Logo" class="h-10 md:h-12 w-auto object-contain hover:scale-[1.05] transition-all duration-300 cursor-pointer drop-shadow-sm">
+          </a>
         </div>
 
         <!-- Navigation Links -->
         <ul class="hidden md:flex gap-6 lg:gap-8 list-none items-center">
-          <li><a href="#home"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">Home</a></li>
-          <li><a href="#about"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">About</a></li>
-          <li><a href="#mission"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">Mission</a>
-          </li>
-          <li><a href="#diseases"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">Prevention</a>
-          </li>
-          <li><a href="#products"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">Products</a>
-          </li>
-          <li><a href="#faq"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">FAQ</a>
-          </li>
-          <li><a href="#contact"
-              class="text-white hover:text-green-200 no-underline text-sm font-medium transition-colors">Contact</a>
-          </li>
+          <li><a href="#home" class="text-gray-600 hover:text-green-700 no-underline text-xs font-bold uppercase tracking-widest transition-colors">Home</a></li>
+          <li><a href="#about" class="text-gray-600 hover:text-green-700 no-underline text-xs font-bold uppercase tracking-widest transition-colors">About</a></li>
+          <li><a href="#mission" class="text-gray-600 hover:text-green-700 no-underline text-xs font-bold uppercase tracking-widest transition-colors">Mission</a></li>
+          <li><a href="#products" class="text-gray-600 hover:text-green-700 no-underline text-xs font-bold uppercase tracking-widest transition-colors">Products</a></li>
+          <li><a href="#contact" class="text-gray-600 hover:text-green-700 no-underline text-xs font-bold uppercase tracking-widest transition-colors">Contact</a></li>
+          
           {% if user.is_authenticated %}
-          <li class="pl-4 border-l border-green-700 flex items-center gap-5">
+          <li class="pl-4 border-l border-gray-200 flex items-center gap-4">
             {% if user.is_superuser %}
-            <a href="{% url 'master_dashboard' %}" class="flex flex-col items-center group">
-              <span
-                class="bg-red-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-sm uppercase tracking-tighter mb-1">Master
-                Control</span>
-              <svg class="w-5 h-5 text-gray-300 group-hover:text-red-400 transition-colors" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                </path>
-              </svg>
-            </a>
+            <a href="{% url 'master_dashboard' %}" class="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-1 rounded uppercase">Admin</a>
             {% endif %}
-            <a href="{% url 'profile' %}" class="flex flex-col items-end group text-right">
-              <span class="text-green-300 text-[10px] font-bold uppercase tracking-widest leading-none mb-1">My
-                Account</span>
-              <span class="text-white text-sm font-bold group-hover:text-green-200 transition-colors">{{ user.username }}</span>
-            </a>
-            <a href="{% url 'logout' %}"
-              class="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-white/20">Logout</a>
+            <a href="{% url 'profile' %}" class="text-xs font-bold text-green-800 uppercase">{{ user.username }}</a>
+            <a href="{% url 'logout' %}" class="text-xs font-bold text-gray-500 hover:text-gray-800 uppercase">Logout</a>
           </li>
           {% else %}
-          <li class="pl-4 border-l border-green-700 flex items-center gap-3">
-            <a href="{% url 'login' %}" class="text-white hover:text-green-200 text-sm font-semibold">Login</a>
-            <a href="{% url 'register' %}"
-              class="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg active:scale-95">Sign
-              Up</a>
+          <li class="pl-4 border-l border-gray-200 flex items-center gap-3">
+            <a href="{% url 'login' %}" class="text-gray-500 hover:text-gray-800 text-xs font-bold uppercase tracking-widest">Login</a>
+            <a href="{% url 'register' %}" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded text-xs font-bold uppercase tracking-widest transition-all shadow-sm">Sign Up</a>
           </li>
           {% endif %}
         </ul>
 
         <!-- Mobile menu button -->
-        <button class="md:hidden text-white" id="mobileMenuBtn">
+        <button class="md:hidden text-green-900" id="mobileMenuBtn">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
     </div>
+    
     <!-- Mobile menu -->
-    <div class="hidden md:hidden bg-green-800 border-t border-green-700" id="mobileMenu">
+    <div class="hidden md:hidden bg-white border-t border-gray-100" id="mobileMenu">
       <ul class="px-4 py-4 space-y-3">
-        <li><a href="#home" class="block text-white hover:text-green-200 no-underline text-sm font-medium">Home</a></li>
-        <li><a href="#about" class="block text-white hover:text-green-200 no-underline text-sm font-medium">About</a>
-        </li>
-        <li><a href="#mission"
-            class="block text-white hover:text-green-200 no-underline text-sm font-medium">Mission</a></li>
-        <li><a href="#products"
-            class="block text-white hover:text-green-200 no-underline text-sm font-medium">Products</a></li>
-        <li><a href="#faq" class="block text-white hover:text-green-200 no-underline text-sm font-medium">FAQ</a></li>
-        <li><a href="#contact"
-            class="block text-white hover:text-green-200 no-underline text-sm font-medium">Contact</a></li>
-
-        <li class="pt-4 border-t border-green-700/50">
+        <li><a href="#home" class="block text-gray-600 font-bold uppercase text-sm">Home</a></li>
+        <li><a href="#about" class="block text-gray-600 font-bold uppercase text-sm">About</a></li>
+        <li><a href="#mission" class="block text-gray-600 font-bold uppercase text-sm">Mission</a></li>
+        <li><a href="#products" class="block text-gray-600 font-bold uppercase text-sm">Products</a></li>
+        <li><a href="#contact" class="block text-gray-600 font-bold uppercase text-sm">Contact</a></li>
+        
+        <li class="pt-4 border-t border-gray-100">
           {% if user.is_authenticated %}
           <div class="flex flex-col gap-3">
             {% if user.is_superuser %}
-            <a href="{% url 'master_dashboard' %}"
-              class="block w-full bg-red-500 text-white p-3 rounded-xl border border-red-600 text-center shadow-lg">
-              <span class="block text-[10px] uppercase font-black tracking-widest leading-none">Admin Access</span>
-              <span class="block font-bold mt-1">Master Control</span>
-            </a>
+            <a href="{% url 'master_dashboard' %}" class="block text-center bg-green-50 text-green-700 py-2 rounded font-bold uppercase text-sm">Master Control</a>
             {% endif %}
-            <a href="{% url 'profile' %}"
-              class="block w-full bg-green-700/50 text-white p-3 rounded-xl border border-green-600">
-              <span class="block text-[10px] uppercase font-bold text-green-300 mb-1">Logged in as</span>
-              <span class="block font-bold">{{ user.username }}</span>
-            </a>
-            <a href="{% url 'logout' %}"
-              class="block w-full text-center bg-white/10 text-white py-2 rounded-lg text-sm font-bold border border-white/20">Logout</a>
+            <a href="{% url 'profile' %}" class="block text-center border border-gray-200 text-gray-700 py-2 rounded font-bold uppercase text-sm">{{ user.username }}</a>
+            <a href="{% url 'logout' %}" class="block text-center text-gray-500 py-2 font-bold uppercase text-sm">Logout</a>
           </div>
           {% else %}
           <div class="flex gap-3">
-            <a href="{% url 'login' %}"
-              class="flex-1 text-center text-white py-2 rounded-lg text-sm font-bold border border-white/20">Login</a>
-            <a href="{% url 'register' %}"
-              class="flex-1 text-center bg-green-500 text-white py-2 rounded-lg text-sm font-bold shadow-lg">Sign Up</a>
+            <a href="{% url 'login' %}" class="flex-1 text-center border border-gray-200 text-gray-600 py-2 rounded font-bold uppercase text-sm">Login</a>
+            <a href="{% url 'register' %}" class="flex-1 text-center bg-green-700 text-white py-2 rounded font-bold uppercase text-sm">Sign Up</a>
           </div>
           {% endif %}
         </li>
@@ -211,50 +172,38 @@
   </nav>
 
   <!-- HERO -->
-  <header id="home" class="bg-gradient-to-br from-green-50 to-green-100 py-6 md:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8">
-          <img src="https://res.cloudinary.com/dxrz29nkw/image/upload/v1772023068/static_assets/mascot.jpg?v=1.1"
-            alt="LeafyPop Mascot" class="h-40 md:h-56 mx-auto mb-2 object-contain mix-blend-multiply animate-float">
-          <p class="text-lg md:text-xl text-gray-600 mb-6 max-w-2xl mx-auto">Fresh • Natural • Eco-Friendly Plant
-            Products</p>
-          <a href="#products"
-            class="inline-block px-8 py-3 bg-green-600 text-white rounded-lg no-underline font-semibold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg">
-            Explore Products
-          </a>
-        </div>
-
-        <div class="marquee-wrapper">
-          <div id="marqueeTrack" class="marquee-track">
-            {% for product in products %}
-            <div
-              class="marquee-item w-64 h-64 flex-shrink-0 mx-4 rounded-xl overflow-hidden shadow-lg border-2 border-green-100 bg-white">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
-            </div>
-            {% endfor %}
-            {% for product in products %}
-            <div
-              class="marquee-item w-64 h-64 flex-shrink-0 mx-4 rounded-xl overflow-hidden shadow-lg border-2 border-green-100 bg-white">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
-            </div>
-            {% endfor %}
-            {% for product in products %}
-            <div
-              class="marquee-item w-64 h-64 flex-shrink-0 mx-4 rounded-xl overflow-hidden shadow-lg border-2 border-green-100 bg-white">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
-            </div>
-            {% endfor %}
-          </div>
-        </div>
+  <header id="home" class="relative bg-black flex items-center justify-center min-h-[50vh] md:min-h-[65vh] overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 w-full h-full z-0">
+      <!-- Using your original approved elegant photography -->
+      <img src="{% static 'store/images/elegant_microgreens.png' %}" alt="Premium Fresh Microgreens Background" class="w-full h-full object-cover">
+      <!-- Clean, subtle overlay to keep image bright and visible while slightly aiding text contrast -->
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-14 pb-12">
+      <!-- Centered Logo inside Hero -->
+      <div class="mb-8" data-aos="fade-down" data-aos-duration="1000">
+        <img src="{% static 'store/images/companyname_transparent.png' %}" alt="LeafyPop Logo" class="h-20 md:h-28 w-auto mx-auto drop-shadow-2xl brightness-110 contrast-105">
       </div>
+      <h1 class="text-4xl md:text-6xl lg:text-7xl text-white mb-6 drop-shadow-2xl font-normal leading-tight tracking-tight" style="font-family: 'Playfair Display', serif; text-shadow: 2px 2px 8px rgba(0,0,0,0.4);">
+        Welcome to LeafyPop Microgreens
+      </h1>
+      <p class="text-lg md:text-2xl text-green-50 mb-10 max-w-3xl mx-auto font-light tracking-wider" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.4);">
+        Fresh • Natural • Eco-Friendly Plant Products
+      </p>
+      <a href="#products"
+        class="inline-block px-10 py-4 bg-green-600/90 backdrop-blur border border-green-400/50 text-white rounded font-medium text-sm md:text-base tracking-widest uppercase hover:bg-green-500 hover:scale-105 transition-all duration-300 shadow-xl">
+        Explore Products
+      </a>
     </div>
   </header>
 
   <!-- ABOUT -->
   <section id="about" class="py-16 md:py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">About LeafyPop</h2>
+      <div class="text-center mb-10"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">About LeafyPop</h2></div>
       <p class="text-lg text-gray-600 leading-relaxed text-center">
         LeafyPop promotes a healthy, eco-friendly diet with fresh fruits,
         vegetables and microgreens — sourced responsibly and grown with care.
@@ -265,7 +214,7 @@
   <!-- MISSION -->
   <section id="mission" class="py-16 md:py-20 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">Our Eco Mission</h2>
+      <div class="text-center mb-10"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Our Eco Mission</h2></div>
       <ul class="space-y-4 text-lg text-gray-700 max-w-2xl mx-auto">
         <li class="flex items-start gap-3">
           <span class="text-2xl">🌿</span>
@@ -304,7 +253,7 @@
         <div class="order-1 lg:order-2 text-left space-y-6">
           <span
             class="inline-block py-1 px-3 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wider">Education</span>
-          <h2 class="text-3xl md:text-5xl font-black text-gray-900 leading-tight">
+          <h2 class="text-3xl md:text-5xl font-black text-gray-900 leading-tight font-elegant heading-underline-left">
             What Are <span class="text-green-600">Microgreens?</span>
           </h2>
           <p class="text-lg text-gray-600 leading-relaxed">
@@ -383,10 +332,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16" data-aos="fade-up">
         <h2 class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3">Science-Backed Nutrition</h2>
-        <h3 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
+        <h3 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight font-elegant heading-underline">
           Natural Shield Against <span class="text-green-600">Chronic Diseases</span>
         </h3>
-        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto italic">
+        <p class="mt-8 text-lg text-gray-600 max-w-2xl mx-auto italic">
           Microgreens contain up to 40x more nutrients than mature plants, targeting specific health conditions.
         </p>
       </div>
@@ -498,8 +447,7 @@
 
   <section id="products" class="py-16 md:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center" data-aos="fade-up">Our Fresh Products
-      </h2>
+      <div class="text-center mb-10" data-aos="fade-up"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Our Fresh Products</h2></div>
 
       <!-- Instant Search Bar -->
       <div class="max-w-md mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
@@ -518,7 +466,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" id="productGrid">
         {% for product in products %}
         <div
-          class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
+          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col"
           data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
           <div class="aspect-square bg-gray-100 overflow-hidden relative">
             <img src="{{ product.image.url }}" alt="{{ product.name }}"
@@ -569,7 +517,7 @@
 
       <!-- Subscription Packs Section -->
       <div class="mt-20">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Subscription Packs</h2>
+        <div class="text-center mb-10"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Subscription Packs</h2></div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
 
           {% for pack in subscription_packs %}
@@ -595,7 +543,7 @@
             </div>
 
             <button onclick="openOrderModal('{{ pack.name }}', '', '{{ pack.description|escapejs }}')"
-              class="mt-6 block w-full text-center bg-green-700 text-white py-3 rounded-xl hover:bg-green-800 transition-colors font-bold shadow-md active:scale-95">
+              class="mt-6 block w-full text-center bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-colors font-bold shadow-md active:scale-95">
               Get Started
             </button>
           </div>
@@ -681,8 +629,8 @@
   <section id="reviews" class="py-16 md:py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-aos="fade-up">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">Real experiences from real people who love LeafyPop</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 font-elegant heading-underline">What Our Customers Say</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto mt-4">Real experiences from real people who love LeafyPop</p>
       </div>
 
       {% if reviews %}
@@ -729,7 +677,7 @@
   <!-- FAQ SECTION -->
   <section id="faq" class="py-16 md:py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
+      <div class="text-center mb-12"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Frequently Asked Questions</h2></div>
       <div class="space-y-4">
         {% for faq in faqs %}
         <div class="border border-gray-200 rounded-xl overflow-hidden hover:border-green-300 transition-colors">
@@ -775,7 +723,7 @@
   <!-- CONTACT -->
   <section id="contact" class="py-16 md:py-20 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Contact / Enquiry</h2>
+      <div class="text-center mb-8"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Contact / Enquiry</h2></div>
       <p class="text-lg text-gray-600 mb-8">Interested in our eco-friendly products? Get in touch with us.</p>
       <a class="inline-block px-8 py-3 bg-green-600 text-white rounded-lg no-underline font-semibold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg"
         href="mailto:leafypop.eco@gmail.com">
