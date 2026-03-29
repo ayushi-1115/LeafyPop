@@ -13,6 +13,9 @@
   <!-- Favicon / Browser Tab Icon -->
   <link rel="icon" type="image/png" href="{% static 'store/images/leafy_pop.png' %}">
 
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <!-- Open Graph / Facebook / Instagram -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://leafypop.onrender.com/">
@@ -48,6 +51,60 @@
     .heading-underline-left { position: relative; display: inline-block; padding-bottom: 0.8rem; }
     .heading-underline-left::after { content: ''; position: absolute; left: 0; bottom: 4px; width: 80px; height: 1px; background-color: #16a34a; }
     .heading-underline-left::before { content: ''; position: absolute; left: 40px; bottom: 2px; transform: translateX(-50%); width: 5px; height: 5px; background-color: #16a34a; border-radius: 50%; z-index: 1; }
+  </style>
+  <style>
+    /* ========= 3D FLIP CARD ========= */
+    .flip-card-container {
+      perspective: 1200px;
+      height: 260px;
+      width: 100%;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+    .flip-card-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    /* Shimmer hint on the card front edge */
+    .flip-card-front::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 4px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 99px;
+      animation: shimmer-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes shimmer-pulse {
+      0%, 100% { opacity: 0.5; width: 24px; }
+      50% { opacity: 1; width: 40px; }
+    }
+    /* Cards pause on hover — handled via JS data-paused attribute */
   </style>
   <link rel="stylesheet" href="{% static 'store/style.css' %}?v=1.1" />
   <!-- AOS Animation Library -->
@@ -96,16 +153,19 @@
     </div>
   </div>
   <!-- NAVBAR - LeafyPop Elegant Style -->
-  <nav class="sticky top-0 w-full bg-white shadow-md z-50 transition-all duration-500">
+  <nav class="sticky top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50 transition-all duration-500 border-b border-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16 md:h-20">
         <!-- Logo -->
         <div class="flex items-center h-full">
           <a href="#home" class="block h-full flex items-center gap-2 md:gap-3 pl-2 md:pl-4">
-            <!-- Original Brand Icon - Balanced size -->
+            <!-- Brand Icon -->
             <img src="{% static 'store/images/leafy_pop.png' %}" alt="LeafyPop Icon" class="h-8 md:h-10 w-auto object-contain drop-shadow-sm">
-            <!-- Company Name Image - Balanced size -->
-            <img src="{% static 'store/images/companyname_transparent.png' %}" alt="LeafyPop Logo" class="h-10 md:h-12 w-auto object-contain hover:scale-[1.05] transition-all duration-300 cursor-pointer drop-shadow-sm">
+            <!-- Company Name + Tagline -->
+            <div class="flex flex-col justify-center leading-none">
+              <img src="{% static 'store/images/companyname_transparent.png' %}" alt="LeafyPop Logo" class="h-8 md:h-10 w-auto object-contain hover:scale-[1.03] transition-all duration-300 cursor-pointer drop-shadow-sm">
+              <span class="text-[9px] md:text-[10px] font-semibold text-green-600 tracking-[0.18em] mt-0.5 pl-0.5">NEXT GEN NUTRITION</span>
+            </div>
           </a>
         </div>
 
@@ -201,43 +261,55 @@
   </header>
 
   <!-- ABOUT -->
-  <section id="about" class="py-16 md:py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="about" class="py-20 md:py-28 bg-[#fdfdfb] relative overflow-hidden">
+    <!-- Subtle Decorative Element -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-green-50 rounded-full blur-3xl opacity-60 -mr-32 -mt-32"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-yellow-50 rounded-full blur-3xl opacity-60 -ml-32 -mb-32"></div>
+    
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center mb-10"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">About LeafyPop</h2></div>
-      <p class="text-lg text-gray-600 leading-relaxed text-center">
+      <p class="text-xl text-gray-700 leading-relaxed text-center font-light">
         LeafyPop promotes a healthy, eco-friendly diet with fresh fruits,
-        vegetables and microgreens — sourced responsibly and grown with care.
+        vegetables and microgreens — <span class="text-green-700 font-medium">sourced responsibly</span> and grown with care.
       </p>
     </div>
   </section>
 
   <!-- MISSION -->
-  <section id="mission" class="py-16 md:py-20 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Our Eco Mission</h2></div>
-      <ul class="space-y-4 text-lg text-gray-700 max-w-2xl mx-auto">
-        <li class="flex items-start gap-3">
-          <span class="text-2xl">🌿</span>
-          <span>100% pesticide-free produce</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-2xl">🌱</span>
-          <span>Sustainably grown microgreens</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-2xl">🍃</span>
-          <span>Locally sourced farm products</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-2xl">💚</span>
-          <span>Supporting healthy lifestyles</span>
-        </li>
-      </ul>
+  <section id="mission" class="py-20 md:py-28 bg-[#f5f9f2] border-y border-green-50/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Our Eco Mission</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <ul class="space-y-6 text-lg text-gray-700">
+          <li class="flex items-center gap-4 bg-white/60 p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-all">
+            <span class="text-3xl">🌿</span>
+            <span class="font-medium">100% pesticide-free produce</span>
+          </li>
+          <li class="flex items-center gap-4 bg-white/60 p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-all">
+            <span class="text-3xl">🌱</span>
+            <span class="font-medium">Sustainably grown microgreens</span>
+          </li>
+          <li class="flex items-center gap-4 bg-white/60 p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-all">
+            <span class="text-3xl">🍃</span>
+            <span class="font-medium">Locally sourced farm products</span>
+          </li>
+          <li class="flex items-center gap-4 bg-white/60 p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-all">
+            <span class="text-3xl">💚</span>
+            <span class="font-medium">Supporting healthy lifestyles</span>
+          </li>
+        </ul>
+        <div class="relative group hidden md:block">
+           <div class="absolute -inset-4 bg-green-200/50 rounded-[2rem] blur-2xl group-hover:blur-3xl transition-all opacity-40"></div>
+           <img src="{% static 'store/images/elegant_microgreens.png' %}" alt="Our Mission" class="relative z-10 rounded-[2rem] shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all duration-700">
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- MICROGREENS EDUCATIONAL SECTION -->
-  <section id="education" class="py-16 md:py-24 bg-white">
+  <section id="education" class="py-20 md:py-32 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Part 1: Definition & Visual -->
@@ -328,7 +400,8 @@
 
     </div>
   </section>
-  <section id="diseases" class="py-16 md:py-24 bg-slate-50">
+  <!-- DISEASES SECTION -->
+  <section id="diseases" class="py-20 md:py-32 bg-gradient-to-b from-slate-50 to-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16" data-aos="fade-up">
         <h2 class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3">Science-Backed Nutrition</h2>
@@ -344,7 +417,7 @@
 
         <!-- PCOD / PCOS Card -->
         <div
-          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-pink-50"
           data-aos="fade-up" data-aos-delay="100">
           <div
             class="w-16 h-16 bg-pink-50 text-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
@@ -354,10 +427,10 @@
               </path>
             </svg>
           </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-4">PCOD/PCOS</h4>
-          <p class="text-sm text-gray-500 mb-6">Hormonal balance via high fiber & nutrient density.</p>
-          <div class="space-y-2">
-            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter">Recommended:</span>
+          <h4 class="text-xl font-bold text-gray-800 mb-4 font-elegant uppercase tracking-wide">PCOD/PCOS</h4>
+          <p class="text-sm text-gray-500 mb-6 font-medium">Hormonal balance via high fiber & nutrient density.</p>
+          <div class="space-y-4">
+            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter border-t border-gray-50 pt-4">Recommended:</span>
             <div class="flex flex-wrap gap-2 text-xs font-semibold">
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Bok Choy</span>
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Lettuce</span>
@@ -368,7 +441,7 @@
 
         <!-- Diabetes Card -->
         <div
-          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-blue-50"
           data-aos="fade-up" data-aos-delay="200">
           <div
             class="w-16 h-16 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
@@ -378,10 +451,10 @@
               </path>
             </svg>
           </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-4">Prevent Diabetes</h4>
-          <p class="text-sm text-gray-500 mb-6">Slows sugar absorption with concentrated enzymes.</p>
-          <div class="space-y-2">
-            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter">Recommended:</span>
+          <h4 class="text-xl font-bold text-gray-800 mb-4 font-elegant uppercase tracking-wide">Prevent Diabetes</h4>
+          <p class="text-sm text-gray-500 mb-6 font-medium">Slows sugar absorption with concentrated enzymes.</p>
+          <div class="space-y-4">
+            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter border-t border-gray-50 pt-4">Recommended:</span>
             <div class="flex flex-wrap gap-2 text-xs font-semibold">
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Fenugreek</span>
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Radish</span>
@@ -392,7 +465,7 @@
 
         <!-- Heart Card -->
         <div
-          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-red-50"
           data-aos="fade-up" data-aos-delay="300">
           <div
             class="w-16 h-16 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
@@ -402,10 +475,10 @@
               </path>
             </svg>
           </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-4">Heart Health</h4>
-          <p class="text-sm text-gray-500 mb-6">Polyphenols known to reduce cholesterol & triglycerides.</p>
-          <div class="space-y-2">
-            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter">Recommended:</span>
+          <h4 class="text-xl font-bold text-gray-800 mb-4 font-elegant uppercase tracking-wide">Heart Health</h4>
+          <p class="text-sm text-gray-500 mb-6 font-medium">Polyphenols known to reduce cholesterol & triglycerides.</p>
+          <div class="space-y-4">
+            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter border-t border-gray-50 pt-4">Recommended:</span>
             <div class="flex flex-wrap gap-2 text-xs font-semibold">
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Bulls Red</span>
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Beetroot</span>
@@ -416,7 +489,7 @@
 
         <!-- Cancer Card -->
         <div
-          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          class="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-purple-50"
           data-aos="fade-up" data-aos-delay="400">
           <div
             class="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
@@ -426,11 +499,10 @@
               </path>
             </svg>
           </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-4">Cancer Prevention</h4>
-          <p class="text-sm text-gray-500 mb-6">Rich in sulforaphane and antioxidants that neutralize free radicals and
-            support natural cellular defense.</p>
-          <div class="space-y-2">
-            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter">Recommended:</span>
+          <h4 class="text-xl font-bold text-gray-800 mb-4 font-elegant uppercase tracking-wide">Cancer Prevention</h4>
+          <p class="text-sm text-gray-500 mb-6 font-medium">Neutralize free radicals and support natural cellular defense.</p>
+          <div class="space-y-4">
+            <span class="block text-xs font-bold text-gray-400 uppercase tracking-tighter border-t border-gray-50 pt-4">Recommended:</span>
             <div class="flex flex-wrap gap-2 text-xs font-semibold">
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Mustard</span>
               <span class="bg-gray-50 px-2 py-1 rounded-md border border-gray-100">Bok Choy</span>
@@ -445,7 +517,8 @@
     </div>
   </section>
 
-  <section id="products" class="py-16 md:py-20 bg-white">
+  <!-- PRODUCTS SECTION -->
+  <section id="products" class="py-24 md:py-32 bg-[#fafbf7]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10" data-aos="fade-up"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Our Fresh Products</h2></div>
 
@@ -453,7 +526,7 @@
       <div class="max-w-md mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
         <div class="relative group">
           <input type="text" id="productSearch" onkeyup="filterProducts()" placeholder="Search microgreens..."
-            class="w-full px-6 py-4 rounded-2xl border-2 border-green-100 focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-p-all duration-300 text-lg shadow-sm group-hover:shadow-md">
+            class="w-full px-6 py-4 rounded-2xl border-2 border-green-100 focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300 text-lg shadow-sm group-hover:shadow-md">
           <div class="absolute right-5 top-1/2 -translate-y-1/2 text-green-500">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -463,53 +536,87 @@
         </div>
       </div>
 
+      <!-- Products Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" id="productGrid">
         {% for product in products %}
         <div
-          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col"
+          class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col group"
           data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-          <div class="aspect-square bg-gray-100 overflow-hidden relative">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}"
-              class="w-full h-full object-cover transition-transform duration-300 {% if product.is_in_stock %}hover:scale-105{% else %}opacity-40 grayscale{% endif %}">
+          
+          <!-- 3D FLIP CARD (Front: Image | Back: Description) -->
+          <div class="flip-card-container" data-paused="false"
+            data-in-stock="{% if product.is_in_stock %}true{% else %}false{% endif %}"
+            onmouseenter="this.dataset.paused='true'"
+            onmouseleave="this.dataset.paused='false'">
+            <div class="flip-card-inner" id="flip-{{ forloop.counter }}">
 
-            {% if not product.is_in_stock %}
-            <!-- OUT OF STOCK OVERLAY -->
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div
-                class="bg-red-800 text-white w-24 h-24 rounded-full flex flex-col items-center justify-center shadow-2xl transform -rotate-12 border-4 border-white">
-                <span
-                  class="font-black text-center text-sm leading-tight tracking-widest pl-1">OUT<br>OF<br>STOCK</span>
+              <!-- FRONT: Product Image -->
+              <div class="flip-card-front">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                  class="w-full h-full object-cover transition-transform duration-700 {% if product.is_in_stock %}hover:scale-105{% else %}opacity-40 grayscale{% endif %}">
+                {% if not product.is_in_stock %}
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                  <div class="bg-red-800/90 text-white w-20 h-20 rounded-full flex flex-col items-center justify-center shadow-2xl transform -rotate-12 border-2 border-white/50">
+                    <span class="font-black text-center text-[10px] leading-tight tracking-widest">OUT<br>OF<br>STOCK</span>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- BACK: Product Description -->
+              <div class="flip-card-back">
+                <!-- Icon -->
+                <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mb-4 shadow-sm">
+                  <span class="text-2xl">🌿</span>
+                </div>
+                <!-- Description text -->
+                <p class="text-sm text-gray-700 leading-relaxed font-medium flex-grow flex items-center">
+                  {{ product.description }}
+                </p>
+                <!-- Trust badges -->
+                <div class="mt-4 flex flex-wrap justify-center gap-2">
+                  <span class="text-[10px] font-bold text-green-800 bg-green-100 border border-green-200 px-3 py-1 rounded-full">✅ Organic</span>
+                  <span class="text-[10px] font-bold text-green-800 bg-green-100 border border-green-200 px-3 py-1 rounded-full">🚚 Fresh Daily</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Product Details (Static) -->
+          <div class="p-6 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-1 text-gray-900 group-hover:text-green-700 transition-colors uppercase tracking-tight">{{ product.name }}</h3>
+              <div class="flex items-center gap-1 mb-4">
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Premium Quality Nutrients</span>
               </div>
             </div>
-            {% endif %}
-          </div>
-          <div class="p-5 flex-grow">
-            <h3 class="text-lg font-bold mb-2 text-gray-900">{{ product.name }}</h3>
-            <p class="text-xs text-gray-500 mb-4">{{ product.description }}</p>
-            <div class="space-y-2">
-              <div class="flex justify-between items-center text-sm">
-                <span class="text-gray-600">50 gm</span>
-                <span class="font-bold text-green-700">₹{{ product.price_50g|floatformat:0 }}</span>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex justify-between items-center text-sm font-medium">
+                <span class="text-gray-500">50 gm pack</span>
+                <span class="font-bold text-gray-900 bg-gray-50 px-3 py-1 rounded-lg border border-gray-100">₹{{ product.price_50g|floatformat:0 }}</span>
               </div>
-              <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-2">
-                <span class="text-gray-600">100 gm</span>
-                <span class="font-bold text-green-700">₹{{ product.price_100g|floatformat:0 }}</span>
+              <div class="flex justify-between items-center text-sm font-medium">
+                <span class="text-gray-500">100 gm pack</span>
+                <span class="font-bold text-gray-900 bg-gray-50 px-3 py-1 rounded-lg border border-gray-100">₹{{ product.price_100g|floatformat:0 }}</span>
               </div>
             </div>
-          </div>
-          <div class="px-5 pb-5">
-            {% if product.is_in_stock %}
-            <button
-              onclick="openOrderModal('{{ product.name }}', '{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}')"
-              class="block w-full text-center bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors text-sm font-semibold shadow-md active:scale-95">
-              Order Now
-            </button>
-            {% else %}
-            <button disabled
-              class="block w-full text-center bg-gray-300 text-gray-500 py-2 rounded-md cursor-not-allowed text-sm font-semibold border border-gray-200">
-              Not Available
-            </button>
-            {% endif %}
+
+            <div class="mt-auto">
+              {% if product.is_in_stock %}
+              <button
+                onclick="openOrderModal('{{ product.name }}', '{{ request.scheme }}://{{ request.get_host }}{{ product.image.url }}')"
+                class="block w-full text-center bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-all font-bold shadow-lg shadow-green-100 active:scale-95">
+                Order Now
+              </button>
+              {% else %}
+              <button disabled
+                class="block w-full text-center bg-gray-100 text-gray-400 py-3 rounded-xl cursor-not-allowed font-bold border border-gray-200">
+                Out of Stock
+              </button>
+              {% endif %}
+            </div>
           </div>
         </div>
         {% endfor %}
@@ -626,7 +733,7 @@
   </section>
 
   <!-- TESTIMONIALS SECTION -->
-  <section id="reviews" class="py-16 md:py-20 bg-gray-50">
+  <section id="reviews" class="py-24 md:py-32 bg-gradient-to-tr from-[#f6f9f3] to-[#fafbf7]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-aos="fade-up">
         <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 font-elegant heading-underline">What Our Customers Say</h2>
@@ -675,14 +782,14 @@
   </section>
 
   <!-- FAQ SECTION -->
-  <section id="faq" class="py-16 md:py-20 bg-white">
+  <section id="faq" class="py-20 md:py-28 bg-[#fdfdfb]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Frequently Asked Questions</h2></div>
       <div class="space-y-4">
         {% for faq in faqs %}
-        <div class="border border-gray-200 rounded-xl overflow-hidden hover:border-green-300 transition-colors">
+        <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-green-200 hover:shadow-md transition-all">
           <button
-            class="w-full px-6 py-4 text-left flex justify-between items-center bg-gray-50 hover:bg-green-50 transition-colors group"
+            class="w-full px-6 py-5 text-left flex justify-between items-center bg-white hover:bg-green-50/30 transition-colors group"
             onclick="toggleFaq('faq-{{ faq.id }}')">
             <span class="font-semibold text-gray-800 group-hover:text-green-800">{{ faq.question }}</span>
             <svg id="icon-faq-{{ faq.id }}"
@@ -691,7 +798,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div id="faq-{{ faq.id }}" class="hidden px-6 py-4 bg-white text-gray-600 border-t border-gray-100">
+          <div id="faq-{{ faq.id }}" class="hidden px-6 py-5 bg-[#fcfdfa] text-gray-600 border-t border-gray-100 leading-relaxed">
             {{ faq.answer }}
           </div>
         </div>
@@ -721,20 +828,31 @@
   </script>
 
   <!-- CONTACT -->
-  <section id="contact" class="py-16 md:py-20 bg-gray-50">
+  <section id="contact" class="py-20 md:py-32 bg-[#f6f9f3] border-t border-green-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="text-center mb-8"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Contact / Enquiry</h2></div>
-      <p class="text-lg text-gray-600 mb-8">Interested in our eco-friendly products? Get in touch with us.</p>
-      <a class="inline-block px-8 py-3 bg-green-600 text-white rounded-lg no-underline font-semibold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg"
-        href="mailto:leafypop.eco@gmail.com">
-        Send Product Enquiry
-      </a>
-      <div class="mt-8">
-        <p class="text-lg text-gray-700 font-medium">Call us at:</p>
-        <p class="text-xl text-green-700 font-bold tracking-wide mt-2">
-          <a href="tel:+918511489644" class="hover:text-green-900 transition-colors">+91 85114 89644</a> /
-          <a href="tel:+919879620396" class="hover:text-green-900 transition-colors">+91 98796 20396</a>
-        </p>
+      <div class="text-center mb-10"><h2 class="text-3xl md:text-5xl font-bold text-gray-900 font-elegant heading-underline">Contact / Enquiry</h2></div>
+      <p class="text-xl text-gray-600 mb-10 font-light">Interested in our eco-friendly products? Get in touch with us.</p>
+      
+      <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-green-100/50 mb-12">
+        <a class="inline-block px-10 py-4 bg-green-600 text-white rounded-full no-underline font-bold hover:bg-green-700 transition-all shadow-lg hover:shadow-green-200 hover:-translate-y-1 active:scale-95 tracking-widest uppercase text-sm mb-12"
+          href="mailto:leafypop.eco@gmail.com">
+          Send Product Enquiry
+        </a>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-gray-100">
+          <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Call Support</p>
+            <p class="text-lg text-green-700 font-bold tracking-wide">
+              <a href="tel:+918511489644" class="hover:text-green-900 transition-colors">+91 85114 89644</a>
+            </p>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">General Inquiry</p>
+            <p class="text-lg text-green-700 font-bold tracking-wide">
+              <a href="tel:+919879620396" class="hover:text-green-900 transition-colors">+91 98796 20396</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -920,6 +1038,38 @@
       return cookieValue;
     }
   </script>
+  <!-- Auto-Flip Product Cards Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const flipCards = document.querySelectorAll('.flip-card-container');
+
+      flipCards.forEach(function (container, index) {
+        const inner = container.querySelector('.flip-card-inner');
+        const isInStock = container.dataset.inStock === 'true';
+
+        // Out-of-stock cards stay static — no flip animation
+        if (!isInStock) return;
+
+        // Stagger the initial flip so all cards don't flip at once
+        const initialDelay = 3000 + (index * 400);
+
+        function scheduleFlip(delay) {
+          setTimeout(function () {
+            // Only flip if not paused (hover)
+            if (container.dataset.paused !== 'true') {
+              inner.classList.toggle('is-flipped');
+            }
+            // Schedule the next toggle every 3.5s
+            scheduleFlip(3500);
+          }, delay);
+        }
+
+        scheduleFlip(initialDelay);
+      });
+    });
+  </script>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 
 </html>

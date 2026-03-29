@@ -6,14 +6,17 @@ from django.conf import settings
 
 # Product Model: Defines the structure for microgreen products in the database
 class Product(models.Model):
-    name = models.CharField(max_length=100) # Name of the product (e.g., Broccoli Microgreens)
-    description = models.TextField() # Detailed description of the product
-    # Price fields for different quantities
+    name = models.CharField(max_length=100)
+    description = models.TextField()
     price_50g = models.DecimalField(max_digits=6, decimal_places=2, default=0.00, verbose_name="Price (50g)")
     price_100g = models.DecimalField(max_digits=6, decimal_places=2, default=0.00, verbose_name="Price (100g)")
-    is_in_stock = models.BooleanField(default=True) # Checkbox to show/hide if product is available
-    image = models.ImageField(upload_to='products/') # Image file stored in media/products/
-    created_at = models.DateTimeField(auto_now_add=True) # Automatically set date when created
+    is_in_stock = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='products/')
+    display_order = models.PositiveIntegerField(default=0, help_text="Set the display order on the homepage (1 = first)")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['display_order', 'id']
 
     def __str__(self):
         return self.name
