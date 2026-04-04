@@ -26,7 +26,45 @@ img {
 
 @media (min-width: 768px) {
   .leafypop-logo {
-    font-size: 2rem;
+    font-size: 2.25rem;
+  }
+}
+
+/* Elegant Navbar Link Hover Effect */
+.nav-link-hover {
+  position: relative;
+}
+
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #16a34a;
+  transition: width 0.3s ease;
+}
+
+.nav-link-hover:hover::after {
+  width: 100%;
+}
+
+/* Premium CTA Glow Button */
+.cta-glow-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-glow-hover:hover {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.4), 0 0 40px rgba(22, 163, 74, 0.2);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Refined Section Padding for Desktop */
+@media (min-width: 1024px) {
+  .section-desktop-spacious {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 }
 
@@ -56,14 +94,29 @@ img {
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
 
-  100% {
-    transform: translateX(-33.33%);
-    /* Shifts 1/3 of the width (1 set of images) */
-  }
+@keyframes ken-burns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1.2) translate(-1%, -1%); }
+}
+
+.ken-burns-bg {
+  animation: ken-burns 20s infinite alternate ease-in-out;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(to right, #22c55e, #16a34a);
+  z-index: 100;
+  transition: width 0.1s ease-out;
 }
 
 /* Mascot Animation */
